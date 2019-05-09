@@ -1,0 +1,54 @@
+@import './loading.css';
+@import './inputDate.css';
+
+body {
+  direction: rtl;
+  /* font-family: 'Roboto Slab', serif; */
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.fixed-buttons {
+  position: fixed;
+  top: 2px;
+  right: 7px;
+  color: dimgray;
+}
+
+.fixed-buttons > span {
+  cursor: pointer;
+  margin: 0 0 0 7px;
+}
+
+.fixed-buttons > span:active {
+  opacity: 0.7;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1260px;
+  }
+}
+
+label {
+  color: #0303b4;
+  font-weight: 600;
+}
+
+th {
+  font-size: 19px;
+}
+
+td {
+  font-size: 18px;
+}
+
+.emailCheck:active {
+  opacity: 0.5;
+}
