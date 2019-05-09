@@ -8,7 +8,6 @@ import { getTreatments } from '../../actions/treatmentActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Tooltip from 'rc-tooltip';
 
 import moment from 'moment';
 
