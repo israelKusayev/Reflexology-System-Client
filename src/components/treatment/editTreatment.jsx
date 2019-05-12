@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editTreatment } from '../../actions/treatmentActions';
 import TreatmentForm from './treatmentForm';
+import { getPatients } from '../../actions/patientActions';
 
 class EditTreatment extends Component {
   state = {
@@ -29,7 +30,7 @@ class EditTreatment extends Component {
     this.setState({ data });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     if (!this.state.data.treatmentNumber)
       this.setState({ error: 'חובה למלא מספר טיפול' });
@@ -38,9 +39,10 @@ class EditTreatment extends Component {
     else {
       this.setState({ error: '' });
 
-      this.props.editTreatment({
+      await this.props.editTreatment({
         ...this.state.data
       });
+      this.props.getPatients();
     }
   };
 
@@ -67,5 +69,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { editTreatment }
+  { editTreatment, getPatients }
 )(EditTreatment);

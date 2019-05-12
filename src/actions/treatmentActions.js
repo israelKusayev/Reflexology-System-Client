@@ -36,6 +36,7 @@ export const editTreatment = treatment => (dispatch, getState) => {
     .put('/api/treatments', treatment, tokenConfig(getState().auth.token))
     .then(res => {
       dispatch({ type: EDIT_TREATMENT_SUCCESS, payload: res.data });
+
       dispatch(clearErrors());
       history.push('/treatments/' + treatment.patientId);
     })
