@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from '../constants/actionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAILED } from '../constants/actionTypes';
 
 const initialState = {
   token: ''

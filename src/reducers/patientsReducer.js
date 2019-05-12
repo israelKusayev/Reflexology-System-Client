@@ -4,8 +4,7 @@ import {
   ADD_PATIENT_SUCCESS,
   ADD_PATIENT_FAILED,
   EDIT_PATIENT_SUCCESS,
-  EDIT_PATIENT_FAILED,
-  EDIT_TREATMENT_SUCCESS
+  EDIT_PATIENT_FAILED
 } from '../constants/actionTypes';
 
 export default (state = [], { type, payload }) => {
