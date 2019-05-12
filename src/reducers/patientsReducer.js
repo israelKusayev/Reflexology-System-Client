@@ -4,7 +4,8 @@ import {
   ADD_PATIENT_SUCCESS,
   ADD_PATIENT_FAILED,
   EDIT_PATIENT_SUCCESS,
-  EDIT_PATIENT_FAILED
+  EDIT_PATIENT_FAILED,
+  EDIT_TREATMENT_SUCCESS
 } from '../constants/actionTypes';
 
 export default (state = [], { type, payload }) => {
@@ -17,6 +18,7 @@ export default (state = [], { type, payload }) => {
       const index = state.findIndex(p => p._id === payload._id);
       state[index] = payload;
       return state;
+
     case GET_PATIENT_FAILED:
     case ADD_PATIENT_FAILED:
     case EDIT_PATIENT_FAILED:

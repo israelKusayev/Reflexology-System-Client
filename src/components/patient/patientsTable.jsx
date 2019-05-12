@@ -32,7 +32,7 @@ class PatientsTable extends Component {
     { label: 'גיל', path: 'age' },
     { label: 'טלפון', path: 'phone' },
     {
-      label: 'תאריך טיפול אחרון',
+      label: 'טיפול אחרון',
       path: 'lastTreatment',
       content: patient =>
         patient.lastTreatment
