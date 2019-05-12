@@ -4,8 +4,7 @@ import errorReducer from './errorReducer';
 import loadingReducer from './loadingReducer';
 import patientsReducer from './patientsReducer';
 import treatmentReducer from './treatmentsReducer';
-import { LOGOUT, SYNC } from '../constants/actionTypes';
-import { STORE_KEY } from '../constants/localStorageConstants';
+import { LOGOUT } from '../constants/actionTypes';
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -20,9 +19,6 @@ export default (state, action) => {
     localStorage.clear();
     state = undefined;
   }
-  if (action.type === SYNC) {
-    state = undefined;
-    localStorage.removeItem(STORE_KEY);
-  }
+
   return appReducer(state, action);
 };

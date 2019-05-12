@@ -5,7 +5,8 @@ import {
   ADD_TREATMENT_FAILED,
   REMOVE_TREATMENT,
   EDIT_TREATMENT_FAILED,
-  EDIT_TREATMENT_SUCCESS
+  EDIT_TREATMENT_SUCCESS,
+  SYNC
 } from '../constants/actionTypes';
 
 export default (state = [], { type, payload }) => {
@@ -19,6 +20,7 @@ export default (state = [], { type, payload }) => {
       state[index] = payload;
       return state;
     case REMOVE_TREATMENT:
+    case SYNC:
       return [];
     case EDIT_TREATMENT_FAILED:
     case GET_TREATMENTS_FAILED:
