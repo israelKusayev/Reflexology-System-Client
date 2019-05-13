@@ -28,14 +28,19 @@ class EditPatient extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (!this.state.data.lastName.trim())
-      this.setState({ error: 'חובה למלא שם משפחה' });
-    else if (!this.state.data.firstName.trim())
-      this.setState({ error: 'חובה למלא שם פרטי' });
+
+    const error = this.validate();
+
+    if (error) this.setState({ error });
     else {
       this.setState({ error: '' });
       this.props.editPatient(this.state.data);
     }
+  };
+
+  validate = () => {
+    if (!this.state.data.lastName.trim()) return 'חובה למלא שם משפחה';
+    if (!this.state.data.firstName.trim()) return 'חובה למלא שם פרטי';
   };
 
   render() {
@@ -53,7 +58,9 @@ class EditPatient extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => ({
-  patient: state.patients.find(p => p._id === ownProps.match.params.id),
+  patient: state.patients.patients.find(
+    p => p._id === ownProps.match.params.id
+  ),
   error: state.error.msg
 });
 

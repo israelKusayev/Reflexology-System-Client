@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import convertDayToText from '../../utils/convertDayToText';
-const Treatment = ({ treatment, history }) => {
+import PatientName from '../patient/patientName';
+
+const Treatment = ({ treatment, currentPatient, history }) => {
   const {
     visitReason,
     treatmentNumber,
@@ -18,6 +20,10 @@ const Treatment = ({ treatment, history }) => {
   return (
     <>
       <h1 className='text-center bold'>טיפול</h1>
+      <h4 className='bold'>שם</h4>
+      <p>
+        <PatientName patient={currentPatient} />
+      </p>
 
       <h4 className='bold'>תאריך</h4>
       <p>
@@ -73,10 +79,11 @@ const Treatment = ({ treatment, history }) => {
     </>
   );
 };
-const mapStateToProps = (state, ownProps) => {
-  return {
-    treatment: state.treatments.find(t => t._id === ownProps.match.params.id)
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  treatment: state.treatments.find(t => t._id === ownProps.match.params.id),
+  currentPatient: state.patients.patients.find(
+    p => p._id === state.patients.currentPatient
+  )
+});
 
 export default connect(mapStateToProps)(Treatment);

@@ -31,10 +31,9 @@ class AddTreatment extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    if (!this.state.data.treatmentNumber)
-      this.setState({ error: 'חובה למלא מספר טיפול' });
-    else if (this.state.data.treatmentNumber <= 0)
-      this.setState({ error: 'מספר טיפול חייב להיות גדול יותר מ 0' });
+
+    const error = this.validate();
+    if (error) this.setState({ error });
     else {
       this.setState({ error: '' });
 
@@ -42,9 +41,14 @@ class AddTreatment extends Component {
         ...this.state.data,
         patientId: this.props.match.params.id
       });
-
       this.props.getPatients();
     }
+  };
+
+  validate = () => {
+    if (!this.state.data.treatmentNumber) return 'חובה למלא מספר טיפול';
+    if (this.state.data.treatmentNumber <= 0)
+      return 'מספר טיפול חייב להיות גדול יותר מ 0';
   };
 
   render() {

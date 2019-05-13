@@ -5,21 +5,31 @@ import {
   ADD_PATIENT_FAILED,
   EDIT_PATIENT_SUCCESS,
   EDIT_PATIENT_FAILED,
-  SYNC
+  SYNC,
+  SET_CURRENT_PATINET
 } from '../constants/actionTypes';
 
-export default (state = [], { type, payload }) => {
+const initialState = {
+  patients: [],
+  currentPatient: ''
+};
+
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_PATIENT_SUCCESS:
-      return payload;
+      return { ...state, patients: payload };
     case ADD_PATIENT_SUCCESS:
-      return [payload, ...state];
+      return { ...state, patients: [payload, ...state.patients] };
+
     case EDIT_PATIENT_SUCCESS:
-      const index = state.findIndex(p => p._id === payload._id);
-      state[index] = payload;
+      const index = state.patients.findIndex(p => p._id === payload._id);
+      state.patients[index] = payload;
       return state;
+    case SET_CURRENT_PATINET:
+      return { ...state, ...payload };
     case SYNC:
-      return [];
+      return initialState;
+
     case GET_PATIENT_FAILED:
     case ADD_PATIENT_FAILED:
     case EDIT_PATIENT_FAILED:

@@ -11,16 +11,18 @@ class Patients extends Component {
   state = { searchQuery: '', currentPage: 1, pageSize: 8 };
 
   componentDidMount() {
-    if (!this.props.patients || this.props.patients.length === 0)
-      this.props.getPatients();
-    this.props.removeTreatmnets();
+    this.initComponent();
   }
 
   componentDidUpdate() {
+    this.initComponent();
+  }
+
+  initComponent = () => {
     if (!this.props.patients || this.props.patients.length === 0)
       this.props.getPatients();
     this.props.removeTreatmnets();
-  }
+  };
 
   handleSearch = query => {
     this.setState({
@@ -28,7 +30,7 @@ class Patients extends Component {
       currentPage: 1
     });
   };
-  ע;
+
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
@@ -58,9 +60,9 @@ class Patients extends Component {
     const { history } = this.props;
     const { searchQuery, pageSize, currentPage } = this.state;
 
-    let filteredPatients = this.filterPatients();
+    const filteredPatients = this.filterPatients();
     const filteredCount = filteredPatients.length;
-    filteredPatients = paginate(
+    const paginatedPatients = paginate(
       filteredPatients,
       this.state.currentPage,
       this.state.pageSize
@@ -75,7 +77,7 @@ class Patients extends Component {
           הוסף לקוח
         </button>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
-        <PatientsTable patients={filteredPatients} history={history} />
+        <PatientsTable patients={paginatedPatients} history={history} />
         {searchQuery && !filteredCount && (
           <div className='alert alert-warning' role='alert'>
             אין תוצאות עבור&nbsp;
@@ -94,7 +96,7 @@ class Patients extends Component {
 }
 
 const mapStateToProps = state => ({
-  patients: state.patients
+  patients: state.patients.patients
 });
 
 export default connect(

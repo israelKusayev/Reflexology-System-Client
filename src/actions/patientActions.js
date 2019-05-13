@@ -7,7 +7,8 @@ import {
   GET_PATIENT_SUCCESS,
   GET_PATIENT_FAILED,
   EDIT_PATIENT_SUCCESS,
-  EDIT_PATIENT_FAILED
+  EDIT_PATIENT_FAILED,
+  SET_CURRENT_PATINET
 } from '../constants/actionTypes';
 import { clearErrors, setError } from './errorActions';
 import history from '../utils/history';
@@ -55,4 +56,11 @@ export const getPatients = () => (dispatch, getState) => {
     .catch(({ response }) => {
       dispatch({ type: GET_PATIENT_FAILED });
     });
+};
+
+export const setCurrentPatient = currentPatient => {
+  return {
+    type: SET_CURRENT_PATINET,
+    payload: { currentPatient }
+  };
 };

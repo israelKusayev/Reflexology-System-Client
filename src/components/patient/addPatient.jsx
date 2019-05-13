@@ -24,15 +24,21 @@ class AddPatient extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (!this.state.data.lastName.trim())
-      this.setState({ error: 'חובה למלא שם משפחה' });
-    else if (!this.state.data.firstName.trim())
-      this.setState({ error: 'חובה למלא שם פרטי' });
+
+    const error = this.validate();
+
+    if (error) this.setState({ error });
     else {
       this.setState({ error: '' });
       this.props.addPatient(this.state.data);
     }
   };
+
+  validate = () => {
+    if (!this.state.data.lastName.trim()) return 'חובה למלא שם משפחה';
+    if (!this.state.data.firstName.trim()) return 'חובה למלא שם פרטי';
+  };
+
   render() {
     return (
       <>

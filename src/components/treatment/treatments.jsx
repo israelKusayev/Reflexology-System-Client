@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTreatments } from '../../actions/treatmentActions';
+import { setCurrentPatient } from '../../actions/patientActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import TreatmentsTable from './treatmentsTable';
+import PatientName from '../patient/patientName';
 
 class Treatments extends Component {
   componentDidMount() {
-    if (!this.props.treatments || !this.props.treatments[0])
-      this.props.getTreatments(this.props.match.params.id);
+    const { treatments, match, setCurrentPatient, getTreatments } = this.props;
+    if (!treatments || !treatments[0]) getTreatments(match.params.id);
+
+    setCurrentPatient(match.params.id);
   }
 
   render() {
+    const { treatments, isFetching, currectPatient, history } = this.props;
     return (
       <>
         <h1 className='text-center bold'>טיפולים</h1>
@@ -26,10 +31,12 @@ class Treatments extends Component {
         >
           הוסף טיפול
         </button>
-
+        <span className='ml-3 bold'>
+          <PatientName patient={currectPatient} />
+        </span>
         <button
           className='btn btn-outline-primary float-right my-3 text-center'
-          onClick={() => this.props.history.push('/patients')}
+          onClick={() => history.push('/patients')}
         >
           חזור ללקוחות
           <span>
@@ -37,11 +44,8 @@ class Treatments extends Component {
             <FontAwesomeIcon icon={faArrowLeft} />
           </span>
         </button>
-        <TreatmentsTable
-          treatments={this.props.treatments}
-          history={this.props.history}
-        />
-        {!this.props.treatments[0] && !this.props.isFetching && (
+        <TreatmentsTable treatments={treatments} history={history} />
+        {!treatments[0] && !isFetching && (
           <div className='alert alert-light text-center' role='alert'>
             אין טיפולים
           </div>
@@ -51,12 +55,15 @@ class Treatments extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   treatments: state.treatments,
-  isFetching: state.loading
+  isFetching: state.loading,
+  currectPatient: state.patients.patients.find(
+    p => p._id === ownProps.match.params.id
+  )
 });
 
 export default connect(
   mapStateToProps,
-  { getTreatments }
+  { getTreatments, setCurrentPatient }
 )(Treatments);

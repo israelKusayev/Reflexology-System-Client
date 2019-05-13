@@ -1,80 +1,53 @@
 import React from 'react';
+import BootstrapInput from '../common/bootstrapInput';
 
 function PatientForm({ data, onSubmit, onChange, error }) {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <div className='form-group'>
-          <label htmlFor='lastName'>
-            <span className='text-danger'>*</span> שם משפחה
-          </label>
-          <input
-            autoFocus={true}
-            type='text'
-            className='form-control'
-            id='lastName'
-            name='lastName'
-            value={data.lastName}
-            onChange={onChange}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='firstName'>
-            <span className='text-danger'>*</span> שם פרטי
-          </label>
-          <input
-            type='text'
-            className='form-control'
-            id='firstName'
-            name='firstName'
-            value={data.firstName}
-            onChange={onChange}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='momName'>שם האם</label>
-          <input
-            type='text'
-            className='form-control'
-            id='momName'
-            name='momName'
-            value={data.momName}
-            onChange={onChange}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='age'>גיל</label>
-          <input
-            type='text'
-            className='form-control'
-            id='age'
-            name='age'
-            value={data.age}
-            onChange={onChange}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='phone'>טלפון</label>
-          <input
-            type='text'
-            className='form-control'
-            id='phone'
-            name='phone'
-            value={data.phone}
-            onChange={onChange}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='email'>אימיל</label>
-          <input
-            type='email'
-            className='form-control'
-            id='email'
-            name='email'
-            value={data.email}
-            onChange={onChange}
-          />
-        </div>
+        <BootstrapInput
+          label='שם משפחה'
+          name='lastName'
+          value={data.lastName}
+          onChange={onChange}
+          required={true}
+          autoFocus={true}
+        />
+
+        <BootstrapInput
+          label='שם פרטי'
+          name='firstName'
+          value={data.firstName}
+          onChange={onChange}
+          required={true}
+        />
+        <BootstrapInput
+          label='שם האם'
+          name='momName'
+          value={data.momName}
+          onChange={onChange}
+        />
+
+        <BootstrapInput
+          label='גיל'
+          name='age'
+          value={data.age}
+          onChange={onChange}
+        />
+
+        <BootstrapInput
+          label='טלפון'
+          name='phone'
+          value={data.phone}
+          onChange={onChange}
+        />
+
+        <BootstrapInput
+          label='אימיל'
+          name='email'
+          value={data.email}
+          onChange={onChange}
+        />
 
         {error && (
           <div className='alert alert-danger' role='alert'>
