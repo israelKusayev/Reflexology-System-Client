@@ -5,19 +5,19 @@ import { getInitialState, saveState } from './localStorage';
 const Middlewares = [thunk];
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export default initialState => {
+  const store = createStore(
+    rootReducer,
+    initialState || getInitialState(),
+    composeEnhancers(applyMiddleware(...Middlewares))
+  );
 
-const store = createStore(
-  rootReducer,
-  getInitialState(),
-  composeEnhancers(applyMiddleware(...Middlewares))
-);
-
-store.subscribe(() =>
-  saveState({
-    patients: store.getState().patients,
-    treatments: store.getState().treatments,
-    auth: { token: store.getState().auth.token }
-  })
-);
-
-export default store;
+  store.subscribe(() =>
+    saveState({
+      patients: store.getState().patients,
+      treatments: store.getState().treatments,
+      auth: { token: store.getState().auth.token }
+    })
+  );
+  return store;
+};

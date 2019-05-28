@@ -24,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coveralls": "npm test -- --coverageReporters=text-lcov | coveralls",
     "eject": "react-scripts eject",
     "deploy": "netlify deploy --prod",
     "build-deploy": "npm run build && npm run deploy"
@@ -40,7 +41,8 @@
   "proxy": "http://localhost:4000",
   "devDependencies": {
     "moxios": "^0.4.0",
-    "redux-mock-store": "^1.5.3",
-    "netlify-cli": "2.11.17"
+    "netlify-cli": "2.11.17",
+    "react-test-renderer": "^16.8.6",
+    "redux-mock-store": "^1.5.3"
   }
 }

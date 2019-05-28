@@ -2,13 +2,11 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import history from './utils/history';
 import { Provider } from 'react-redux';
-import App from './App';
+import store from './store/store';
 
-const Root = ({ store }) => (
-  <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
+const Root = ({ children, initialState = undefined }) => (
+  <Provider store={store(initialState)}>
+    <Router history={history}>{children}</Router>
   </Provider>
 );
 
