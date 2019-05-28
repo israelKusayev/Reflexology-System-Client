@@ -24,7 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coveralls": "npm run test -- --coverageReporters=text-lcov | coveralls",
+    "test:coveralls": "npm test -- --coverage --coverageReporters=text-lcov | coveralls",
     "eject": "react-scripts eject",
     "deploy": "netlify deploy --prod",
     "build-deploy": "npm run build && npm run deploy"
