@@ -1,6 +1,6 @@
 import {
-  GET_PATIENT_SUCCESS,
-  GET_PATIENT_FAILED,
+  GET_PATIENTS_SUCCESS,
+  GET_PATIENTS_FAILED,
   ADD_PATIENT_SUCCESS,
   ADD_PATIENT_FAILED,
   EDIT_PATIENT_SUCCESS,
@@ -16,7 +16,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_PATIENT_SUCCESS:
+    case GET_PATIENTS_SUCCESS:
       return { ...state, patients: payload };
     case ADD_PATIENT_SUCCESS:
       return { ...state, patients: [payload, ...state.patients] };
@@ -30,7 +30,7 @@ export default (state = initialState, { type, payload }) => {
     case SYNC:
       return initialState;
 
-    case GET_PATIENT_FAILED:
+    case GET_PATIENTS_FAILED:
     case ADD_PATIENT_FAILED:
     case EDIT_PATIENT_FAILED:
     default:

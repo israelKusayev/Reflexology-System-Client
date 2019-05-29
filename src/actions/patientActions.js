@@ -4,8 +4,8 @@ import {
   ADD_PATIENT_SUCCESS,
   ADD_PATIENT_FAILED,
   REQUEST_FETCH,
-  GET_PATIENT_SUCCESS,
-  GET_PATIENT_FAILED,
+  GET_PATIENTS_SUCCESS,
+  GET_PATIENTS_FAILED,
   EDIT_PATIENT_SUCCESS,
   EDIT_PATIENT_FAILED,
   SET_CURRENT_PATINET
@@ -51,10 +51,10 @@ export const getPatients = () => (dispatch, getState) => {
   return axios
     .get('/api/patients', tokenConfig(getState().auth.token))
     .then(res => {
-      dispatch({ type: GET_PATIENT_SUCCESS, payload: res.data });
+      dispatch({ type: GET_PATIENTS_SUCCESS, payload: res.data });
     })
     .catch(({ response }) => {
-      dispatch({ type: GET_PATIENT_FAILED });
+      dispatch({ type: GET_PATIENTS_FAILED });
     });
 };
 

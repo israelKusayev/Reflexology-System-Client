@@ -150,14 +150,14 @@ describe('patinet actions', () => {
       });
     });
 
-    it('creates GET_PATIENT_SUCCESS when get patinets has been done', () => {
+    it('creates GET_PATIENTS_SUCCESS when get patinets has been done', () => {
       payload = [{ patient: { _id: '1234' } }];
       mockRequest();
 
       const expectedActions = [
         { type: types.REQUEST_FETCH },
         {
-          type: types.GET_PATIENT_SUCCESS,
+          type: types.GET_PATIENTS_SUCCESS,
           payload
         }
       ];

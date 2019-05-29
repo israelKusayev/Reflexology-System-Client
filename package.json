@@ -38,9 +38,15 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "husky": {
+    "hooks": {
+      "pre-push": "CI=true npm test"
+    }
+  },
   "proxy": "http://localhost:4000",
   "devDependencies": {
     "coveralls": "^3.0.3",
+    "husky": "^2.3.0",
     "moxios": "^0.4.0",
     "netlify-cli": "2.11.17",
     "react-test-renderer": "^16.8.6",
