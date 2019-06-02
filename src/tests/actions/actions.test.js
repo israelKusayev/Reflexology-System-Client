@@ -74,6 +74,27 @@ describe('auth actions', () => {
       });
     });
   });
+
+  it('creates LOGIN_FAILED when login failed', async () => {
+    status = 400;
+    payload = { msg: 'error' };
+    mockRequest();
+
+    const expectedActions = [
+      { type: types.REQUEST_FETCH },
+      {
+        type: types.LOGIN_FAILED
+      },
+      {
+        type: types.SET_ERRORS,
+        payload: { id: null, msg: payload.msg, status }
+      }
+    ];
+
+    return store.dispatch(authActions.login({}, '/')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
 });
 
 describe('error actions', () => {

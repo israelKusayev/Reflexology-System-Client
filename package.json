@@ -24,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:verbose": "npm test -- --verbose false",
     "test:coveralls": "npm test -- --coverage --coverageReporters=text-lcov | coveralls",
     "eject": "react-scripts eject",
     "deploy": "netlify deploy --prod",
@@ -46,6 +47,8 @@
   "proxy": "http://localhost:4000",
   "devDependencies": {
     "coveralls": "^3.0.3",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.2",
     "husky": "^2.3.0",
     "moxios": "^0.4.0",
     "netlify-cli": "2.11.17",

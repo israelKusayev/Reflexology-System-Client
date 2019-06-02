@@ -58,7 +58,7 @@ class Patients extends Component {
 
   render() {
     const { history } = this.props;
-    const { searchQuery, pageSize, currentPage } = this.state;
+    const { searchQuery, pageSize, currentPage, isFetching } = this.state;
 
     const filteredPatients = this.filterPatients();
     const filteredCount = filteredPatients.length;
@@ -78,6 +78,11 @@ class Patients extends Component {
         </button>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <PatientsTable patients={paginatedPatients} history={history} />
+        {!paginatedPatients[0] && !isFetching && (
+          <div className='alert alert-light text-center' role='alert'>
+            אין לקוחות
+          </div>
+        )}
         {searchQuery && !filteredCount && (
           <div className='alert alert-warning' role='alert'>
             אין תוצאות עבור&nbsp;
@@ -96,7 +101,8 @@ class Patients extends Component {
 }
 
 const mapStateToProps = state => ({
-  patients: state.patients.patients
+  patients: state.patients.patients,
+  isFetching: state.loading
 });
 
 export default connect(

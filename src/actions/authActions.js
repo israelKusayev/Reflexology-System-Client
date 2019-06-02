@@ -20,8 +20,8 @@ export const login = (user, returnUrl) => dispatch => {
       history.push(returnUrl ? returnUrl : '/patients');
     })
     .catch(({ response }) => {
-      dispatch(setError(response.data.msg, response.status));
       dispatch({ type: LOGIN_FAILED });
+      dispatch(setError(response.data.msg, response.status));
     });
 };
 
