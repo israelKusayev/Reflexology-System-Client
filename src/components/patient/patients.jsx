@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getPatients } from '../../actions/patientActions';
+import { removeTreatmnets } from '../../actions/treatmentActions';
 import { paginate } from '../../utils/paginate';
 import PatientsTable from './patientsTable';
 import Pagination from '../common/pagination';
@@ -16,6 +17,7 @@ class Patients extends Component {
   initComponent = () => {
     if (!this.props.patients || this.props.patients.length === 0)
       this.props.getPatients();
+    this.props.removeTreatmnets();
   };
 
   handleSearch = query => {
@@ -101,5 +103,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPatients }
+  { getPatients, removeTreatmnets }
 )(Patients);

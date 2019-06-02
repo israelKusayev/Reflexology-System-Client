@@ -6,6 +6,7 @@ import {
   REQUEST_FETCH,
   GET_TREATMENTS_SUCCESS,
   GET_TREATMENTS_FAILED,
+  REMOVE_TREATMENT,
   EDIT_TREATMENT_SUCCESS,
   EDIT_TREATMENT_FAILED
 } from '../constants/actionTypes';
@@ -57,3 +58,6 @@ export const getTreatments = clientId => (dispatch, getState) => {
       dispatch({ type: GET_TREATMENTS_FAILED });
     });
 };
+
+// Remove patinet treatment
+export const removeTreatmnets = () => ({ type: REMOVE_TREATMENT });

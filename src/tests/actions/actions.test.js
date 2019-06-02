@@ -190,6 +190,16 @@ describe('patinet actions', () => {
 });
 
 describe('treatment actions', () => {
+  describe('action creators', () => {
+    it('create an action to remove treatments', () => {
+      const expectedAction = {
+        type: types.REMOVE_TREATMENT
+      };
+
+      expect(treatmentActions.removeTreatmnets()).toEqual(expectedAction);
+    });
+  });
+
   describe('async action creators', () => {
     it('creates ADD_TREATMENT_SUCCESS when add treatment has been done', () => {
       payload = { treatment: { _id: '1234' } };

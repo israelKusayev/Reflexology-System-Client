@@ -211,4 +211,11 @@ describe('treatments reducer', () => {
       })
     ).toEqual([payload, initialState[1]]);
   });
+
+  it('should handle REMOVE_TREATMENT ', () => {
+    const initialState = [{ id: '1', visitReason: 'abc' }];
+    expect(
+      treatmentsReducer(initialState, { type: types.REMOVE_TREATMENT })
+    ).toEqual([]);
+  });
 });
