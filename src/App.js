@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import './utils/axiosSettings';
 
@@ -17,7 +17,6 @@ import Treatment from './components/treatment/treatment';
 import { logout } from './actions/authActions';
 import EditTreatment from './components/treatment/editTreatment';
 import ProtectedRoute from './components/common/protectedRoute';
-import { sync } from './actions/syncActions';
 
 class App extends Component {
   handleLogout = () => {
@@ -35,9 +34,6 @@ class App extends Component {
         <span className='fixed-buttons '>
           <span onClick={this.handleLogout} title='Logout'>
             <FontAwesomeIcon icon={faSignOutAlt} />
-          </span>
-          <span title='sync' onClick={this.handleSync}>
-            <FontAwesomeIcon icon={faSync} />
           </span>
         </span>
 
@@ -69,5 +65,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { logout, sync }
+  { logout }
 )(App);

@@ -149,16 +149,6 @@ describe('patinets reducer', () => {
       ...payload
     });
   });
-
-  it('should handle SYNC', () => {
-    const initialState = {
-      currentPatient: '',
-      patients: []
-    };
-    expect(patientsReducer(initialState, { type: types.SYNC })).toEqual(
-      initialState
-    );
-  });
 });
 
 describe('root reducer', () => {
@@ -220,14 +210,5 @@ describe('treatments reducer', () => {
         payload
       })
     ).toEqual([payload, initialState[1]]);
-  });
-
-  it('should handle REMOVE_TREATMENT and SYNC', () => {
-    const initialState = [{ id: '1', visitReason: 'abc' }];
-    expect(
-      treatmentsReducer(initialState, { type: types.REMOVE_TREATMENT })
-    ).toEqual([]);
-
-    expect(treatmentsReducer(initialState, { type: types.SYNC })).toEqual([]);
   });
 });

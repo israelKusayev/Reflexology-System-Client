@@ -3,10 +3,8 @@ import {
   GET_TREATMENTS_FAILED,
   ADD_TREATMENT_SUCCESS,
   ADD_TREATMENT_FAILED,
-  REMOVE_TREATMENT,
   EDIT_TREATMENT_FAILED,
-  EDIT_TREATMENT_SUCCESS,
-  SYNC
+  EDIT_TREATMENT_SUCCESS
 } from '../constants/actionTypes';
 
 export default (state = [], { type, payload }) => {
@@ -19,9 +17,7 @@ export default (state = [], { type, payload }) => {
       const index = state.findIndex(t => t._id === payload._id);
       state[index] = payload;
       return state;
-    case REMOVE_TREATMENT:
-    case SYNC:
-      return [];
+
     case EDIT_TREATMENT_FAILED:
     case GET_TREATMENTS_FAILED:
     case ADD_TREATMENT_FAILED:

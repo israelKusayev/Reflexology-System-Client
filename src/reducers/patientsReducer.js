@@ -5,7 +5,6 @@ import {
   ADD_PATIENT_FAILED,
   EDIT_PATIENT_SUCCESS,
   EDIT_PATIENT_FAILED,
-  SYNC,
   SET_CURRENT_PATINET
 } from '../constants/actionTypes';
 
@@ -27,8 +26,6 @@ export default (state = initialState, { type, payload }) => {
       return state;
     case SET_CURRENT_PATINET:
       return { ...state, ...payload };
-    case SYNC:
-      return initialState;
 
     case GET_PATIENTS_FAILED:
     case ADD_PATIENT_FAILED:

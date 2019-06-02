@@ -4,7 +4,16 @@ import moment from 'moment';
 import convertDayToText from '../../utils/convertDayToText';
 import PatientName from '../patient/patientName';
 
-const Treatment = ({ treatment, currentPatient, history }) => {
+const Treatment = ({
+  treatment,
+  currentPatient,
+  history,
+  isPatientsExists
+}) => {
+  if (!isPatientsExists) {
+    history.push('/patients');
+    return null;
+  }
   const {
     visitReason,
     treatmentNumber,
@@ -80,6 +89,7 @@ const Treatment = ({ treatment, currentPatient, history }) => {
   );
 };
 const mapStateToProps = (state, ownProps) => ({
+  isPatientsExists: state.patients.patients.length !== 0,
   treatment: state.treatments.find(t => t._id === ownProps.match.params.id),
   currentPatient: state.patients.patients.find(
     p => p._id === state.patients.currentPatient

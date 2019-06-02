@@ -1,7 +1,6 @@
 import * as authActions from '../../actions/authActions';
 import * as errorActions from '../../actions/errorActions';
 import * as patientActions from '../../actions/patientActions';
-import * as syncActions from '../../actions/syncActions';
 import * as treatmentActions from '../../actions/treatmentActions';
 
 import * as types from '../../constants/actionTypes';
@@ -190,38 +189,7 @@ describe('patinet actions', () => {
   });
 });
 
-describe('sync actions', () => {
-  describe('actions creators', () => {
-    it('create an action to sync data', () => {
-      const expectedAction = {
-        type: types.SYNC
-      };
-
-      expect(syncActions.sync()).toEqual(expectedAction);
-    });
-
-    it('should clear the local storage', () => {
-      const key = 'token';
-      localStorage.setItem(key, '1234');
-
-      syncActions.sync();
-
-      expect(localStorage.getItem(key)).toBeNull();
-    });
-  });
-});
-
 describe('treatment actions', () => {
-  describe('action creators', () => {
-    it('create an action to remove treatments', () => {
-      const expectedAction = {
-        type: types.REMOVE_TREATMENT
-      };
-
-      expect(treatmentActions.removeTreatmnets()).toEqual(expectedAction);
-    });
-  });
-
   describe('async action creators', () => {
     it('creates ADD_TREATMENT_SUCCESS when add treatment has been done', () => {
       payload = { treatment: { _id: '1234' } };

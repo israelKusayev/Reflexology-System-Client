@@ -7,17 +7,27 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import TreatmentsTable from './treatmentsTable';
 import PatientName from '../patient/patientName';
+import history from '../../utils/history';
 
 class Treatments extends Component {
   componentDidMount() {
-    const { treatments, match, setCurrentPatient, getTreatments } = this.props;
-    if (!treatments || !treatments[0]) getTreatments(match.params.id);
+    const { match, setCurrentPatient, getTreatments } = this.props;
 
+    getTreatments(match.params.id);
     setCurrentPatient(match.params.id);
   }
 
   render() {
-    const { treatments, isFetching, currectPatient, history } = this.props;
+    const {
+      treatments,
+      isFetching,
+      currectPatient,
+      isPatientsExists
+    } = this.props;
+    if (!isPatientsExists) {
+      history.push('/patients');
+      return null;
+    }
     return (
       <>
         <h1 className='text-center bold'>טיפולים</h1>
@@ -56,6 +66,7 @@ class Treatments extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  isPatientsExists: state.patients.patients.length !== 0,
   treatments: state.treatments,
   isFetching: state.loading,
   currectPatient: state.patients.patients.find(

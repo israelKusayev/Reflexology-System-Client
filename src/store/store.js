@@ -14,8 +14,8 @@ export default initialState => {
 
   store.subscribe(() =>
     saveState({
-      patients: store.getState().patients,
-      treatments: store.getState().treatments,
+      // patients: store.getState().patients,
+      // treatments: store.getState().treatments,
       auth: { token: store.getState().auth.token }
     })
   );
