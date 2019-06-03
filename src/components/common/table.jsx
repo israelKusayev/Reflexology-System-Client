@@ -5,7 +5,7 @@ import TableHeader from './tableHeader';
 function Table({ columns, data, onRowClick }) {
   return (
     <div className='table-responsive'>
-      <table className='table  table-hover '>
+      <table className='table table-hover '>
         <TableHeader columns={columns} />
         <TableBody data={data} columns={columns} onRowClick={onRowClick} />
       </table>

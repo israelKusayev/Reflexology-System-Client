@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTreatments } from '../../actions/treatmentActions';
-import { setCurrentPatient } from '../../actions/patientActions';
+import { setCurrentPatient, getPatients } from '../../actions/patientActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,7 +25,7 @@ class Treatments extends Component {
       isPatientsExists
     } = this.props;
     if (!isPatientsExists) {
-      history.push('/patients');
+      this.props.getPatients();
       return null;
     }
     return (
@@ -76,5 +76,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { getTreatments, setCurrentPatient }
+  { getTreatments, setCurrentPatient, getPatients }
 )(Treatments);

@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`not found component renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "textAlign": "center",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "fontSize": "5em",
+        "fontWeight": "bold",
+      }
+    }
+  >
+    4
+    <span
+      aria-label="0"
+      role="img"
+    >
+      😯
+    </span>
+    4
+  </div>
+  <div
+    className="bold"
+  >
+    page not found
+  </div>
+</div>
+`;
+
 exports[`renders correctly 1`] = `
 <div
   style={

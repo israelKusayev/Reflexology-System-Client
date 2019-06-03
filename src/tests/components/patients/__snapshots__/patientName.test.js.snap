@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`patient name component should  1`] = `
+<patientName
+  patient={
+    Object {
+      "firstName": "test",
+      "lastName": "1234",
+      "momName": "mom",
+    }
+  }
+/>
+`;

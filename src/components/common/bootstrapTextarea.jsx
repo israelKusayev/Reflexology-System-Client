@@ -11,7 +11,8 @@ const BootstrapTextarea = ({
   return (
     <div className='form-group'>
       <label htmlFor={name}>
-        {required ? <span className='text-danger'>*</span> : null} {label}
+        {required ? <span className='text-danger'>* </span> : null}
+        {label}
       </label>
       <textarea
         className='form-control'

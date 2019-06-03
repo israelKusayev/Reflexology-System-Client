@@ -12,7 +12,8 @@ const BootstrapInput = ({
   return (
     <div className='form-group'>
       <label htmlFor={name}>
-        {required ? <span className='text-danger'>*</span> : null} {label}
+        {required ? <span className='text-danger'>* </span> : ''}
+        {label}
       </label>
       <input
         className='form-control'

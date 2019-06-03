@@ -2,7 +2,12 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const ProtectedRoute = ({ component: Component, render, token, ...rest }) => {
+export const ProtectedRoute = ({
+  component: Component,
+  render,
+  token,
+  ...rest
+}) => {
   return (
     <Route
       {...rest}
