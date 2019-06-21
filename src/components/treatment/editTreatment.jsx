@@ -47,8 +47,7 @@ class EditTreatment extends Component {
 
   validate = () => {
     if (!this.state.data.treatmentNumber) return 'חובה למלא מספר טיפול';
-    if (this.state.data.treatmentNumber <= 0)
-      return 'מספר טיפול חייב להיות גדול יותר מ 0';
+    if (this.state.data.treatmentNumber <= 0) return 'מספר טיפול חייב להיות גדול יותר מ 0';
   };
 
   render() {
@@ -58,6 +57,7 @@ class EditTreatment extends Component {
       <>
         <h1 className='text-center bold'>ערוך טיפול</h1>
         <TreatmentForm
+          patient={this.props.patient}
           data={data}
           error={error}
           onChange={this.handleChange}
@@ -67,10 +67,14 @@ class EditTreatment extends Component {
     );
   }
 }
-const mapStateToProps = (state, ownProps) => ({
-  error: state.error.msg,
-  treatment: state.treatments.find(t => t._id === ownProps.match.params.id)
-});
+const mapStateToProps = (state, ownProps) => {
+  const treatment = state.treatments.find(t => t._id === ownProps.match.params.id);
+  return {
+    treatment,
+    error: state.error.msg,
+    patient: state.patients.patients.find(p => p._id === treatment.patientId)
+  };
+};
 
 export default connect(
   mapStateToProps,

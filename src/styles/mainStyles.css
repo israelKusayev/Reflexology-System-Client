@@ -52,3 +52,8 @@ td {
 .emailCheck:active {
   opacity: 0.5;
 }
+/* 
+.v-tooltip {
+  margin-left: 50px !important;
+  background-color: red !important;
+} */

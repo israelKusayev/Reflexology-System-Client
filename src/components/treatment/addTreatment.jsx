@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addTreatment } from '../../actions/treatmentActions';
 import TreatmentForm from './treatmentForm';
-import { getPatients } from '../../actions/patientActions';
+import { getPatients, setCurrentPatient } from '../../actions/patientActions';
 
 class AddTreatment extends Component {
   state = {
@@ -19,6 +19,7 @@ class AddTreatment extends Component {
   };
 
   componentDidMount() {
+    this.props.setCurrentPatient(this.props.match.params.id);
     const data = { ...this.state.data, ...this.props.prevTreatment };
     this.setState({ data });
   }
@@ -47,8 +48,7 @@ class AddTreatment extends Component {
 
   validate = () => {
     if (!this.state.data.treatmentNumber) return 'חובה למלא מספר טיפול';
-    if (this.state.data.treatmentNumber <= 0)
-      return 'מספר טיפול חייב להיות גדול יותר מ 0';
+    if (this.state.data.treatmentNumber <= 0) return 'מספר טיפול חייב להיות גדול יותר מ 0';
   };
 
   render() {
@@ -58,6 +58,7 @@ class AddTreatment extends Component {
       <>
         <h1 className='text-center bold'>הוסף טיפול</h1>
         <TreatmentForm
+          patient={this.props.patient}
           data={data}
           error={error}
           onChange={this.handleChange}
@@ -67,21 +68,20 @@ class AddTreatment extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const lastTreatment = state.treatments[0];
-
+  debugger;
   return {
     error: state.error.msg,
     prevTreatment: {
-      treatmentNumber: lastTreatment
-        ? lastTreatment.treatmentNumber + 1 || 1
-        : 1,
+      treatmentNumber: lastTreatment ? lastTreatment.treatmentNumber + 1 || 1 : 1,
       referredBy: lastTreatment ? lastTreatment.referredBy : ''
-    }
+    },
+    patient: state.patients.patients.find(p => p._id === ownProps.match.params.id)
   };
 };
 
 export default connect(
   mapStateToProps,
-  { addTreatment, getPatients }
+  { addTreatment, getPatients, setCurrentPatient }
 )(AddTreatment);

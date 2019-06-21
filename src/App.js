@@ -17,8 +17,12 @@ import Treatment from './components/treatment/treatment';
 import { logout } from './actions/authActions';
 import EditTreatment from './components/treatment/editTreatment';
 import ProtectedRoute from './components/common/protectedRoute';
+import { getPatients } from './actions/patientActions';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getPatients();
+  }
   handleLogout = () => {
     this.props.logout();
   };
@@ -43,14 +47,8 @@ class App extends Component {
             <ProtectedRoute path='/patients' component={Patients} />
             <ProtectedRoute path='/add-patient' component={AddPatient} />
             <ProtectedRoute path='/edit-patient/:id' component={EditPatient} />
-            <ProtectedRoute
-              path='/add-treatment/:id'
-              component={AddTreatment}
-            />
-            <ProtectedRoute
-              path='/edit-treatment/:id'
-              component={EditTreatment}
-            />
+            <ProtectedRoute path='/add-treatment/:id' component={AddTreatment} />
+            <ProtectedRoute path='/edit-treatment/:id' component={EditTreatment} />
             <ProtectedRoute path='/treatments/:id' component={Treatments} />
             <ProtectedRoute path='/treatment/:id' component={Treatment} />
             <Route path='/404' component={NotFound} />
@@ -65,5 +63,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { logout }
+  { logout, getPatients }
 )(App);

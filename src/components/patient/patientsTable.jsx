@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 import PropTypes from 'prop-types';
 import Table from '../common/table';
@@ -20,24 +21,61 @@ class PatientsTable extends Component {
     e.stopPropagation();
   };
 
+  handleCallToggle = patient => {
+    this.props.onCallToggle(patient);
+  };
+
   columns = [
     { label: 'שם משפחה', path: 'lastName' },
     { label: 'שם פרטי', path: 'firstName' },
     {
       label: 'שם האם',
       path: 'momName',
-      content: patient =>
-        patient.momName ? <span> ({patient.momName})</span> : ''
+      content: patient => (patient.momName ? <span> ({patient.momName})</span> : '')
     },
-    { label: 'גיל', path: 'age' },
+    {
+      label: 'גיל',
+      path: 'age',
+      content: patient => (
+        <>
+          <span data-tip={patient.age}>{patient.age}</span>
+          <ReactTooltip effect='solid' />
+        </>
+      )
+    },
+    {
+      label: 'V',
+      path: 'lastTreatmentCall',
+      content: patient => (
+        <>
+          <div
+            data-tip={patient.lastTreatmentCall ? moment(patient.lastTreatmentCallDate).format('DD/MM/YYYY') : ''}
+            className='custom-control custom-checkbox'
+            onClick={e => e.stopPropagation()}
+          >
+            <input
+              type='checkbox'
+              className='custom-control-input'
+              data-for={'v' + patient._id}
+              checked={patient.lastTreatmentCall}
+              readOnly={true}
+              id={patient._id}
+            />
+            <label
+              onClick={() => this.handleCallToggle(patient)}
+              className='custom-control-label'
+              htmlFor={patient._id}
+            />
+          </div>
+          <ReactTooltip id={'v' + patient._id} className='v-tooltip' effect='solid' />
+        </>
+      )
+    },
     { label: 'טלפון', path: 'phone' },
     {
       label: 'טיפול אחרון',
       path: 'lastTreatment',
-      content: patient =>
-        patient.lastTreatment
-          ? moment(patient.lastTreatment).format('DD/MM/YYYY')
-          : ''
+      content: patient => (patient.lastTreatment ? moment(patient.lastTreatment).format('DD/MM/YYYY') : '')
     },
     {
       label: 'אימיל',
@@ -81,13 +119,7 @@ class PatientsTable extends Component {
   ];
 
   render() {
-    return (
-      <Table
-        onRowClick={this.handleRowClick}
-        columns={this.columns}
-        data={this.props.patients}
-      />
-    );
+    return <Table onRowClick={this.handleRowClick} columns={this.columns} data={this.props.patients} />;
   }
 }
 

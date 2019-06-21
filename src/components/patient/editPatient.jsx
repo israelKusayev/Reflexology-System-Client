@@ -58,9 +58,7 @@ class EditPatient extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => ({
-  patient: state.patients.patients.find(
-    p => p._id === ownProps.match.params.id
-  ),
+  patient: state.patients.patients.find(p => p._id === ownProps.match.params.id),
   error: state.error.msg
 });
 
