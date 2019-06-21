@@ -26,7 +26,10 @@ export class TreatmentsTable extends Component {
       path: 'recommendations',
       label: 'המלצות'
     },
-
+    {
+      path: 'remarks',
+      label: 'הערות'
+    },
     {
       key: 'editTreatment',
       content: treatment => (
@@ -52,11 +55,7 @@ export class TreatmentsTable extends Component {
   render() {
     return (
       <>
-        <Table
-          columns={this.columns}
-          data={this.props.treatments}
-          onRowClick={this.handleRowClick}
-        />
+        <Table columns={this.columns} data={this.props.treatments} onRowClick={this.handleRowClick} />
       </>
     );
   }
