@@ -1,13 +1,14 @@
 import React from 'react';
 import BootstrapInput from '../common/bootstrapInput';
 import BootstrapTextarea from '../common/bootstrapTextarea';
+import DatePicker from '../common/datePicker';
 import PatientName from '../patient/patientName';
 
 const TreatmentForm = ({ patient, data, onSubmit, onChange, error }) => {
   return (
     <form onSubmit={onSubmit}>
-      <PatientName patient={patient || {}} />
-      <BootstrapInput label='תאריך ושעה' name='date' type='date' value={data.date} onChange={onChange} />
+      <PatientName className='mb-2 d-block' patient={patient || {}} />
+      <DatePicker label='תאריך' name='date' value={data.date} onChange={onChange} />
       <BootstrapTextarea
         label='סיבת ביקור'
         name='visitReason'
@@ -15,7 +16,13 @@ const TreatmentForm = ({ patient, data, onSubmit, onChange, error }) => {
         onChange={onChange}
         autoFocus={true}
       />
-      <BootstrapTextarea label='מספר טיפול' name='treatmentNumber' value={data.treatmentNumber} onChange={onChange} />
+      <BootstrapInput
+        label='מספר טיפול'
+        name='treatmentNumber'
+        type='number'
+        value={data.treatmentNumber}
+        onChange={onChange}
+      />
       <BootstrapInput label='הופנה ע"י' name='referredBy' value={data.referredBy} onChange={onChange} />
       <BootstrapTextarea label='ממצאים' name='findings' value={data.findings} onChange={onChange} />
       <BootstrapTextarea label='המלצות' name='recommendations' value={data.recommendations} onChange={onChange} />

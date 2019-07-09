@@ -45,6 +45,7 @@ class Patients extends Component {
       for (let name in patient) {
         if (name === '_id' || name === 'createdAt') continue;
         if (
+          patient[name] &&
           patient[name]
             .toString()
             .toLowerCase()
@@ -66,12 +67,17 @@ class Patients extends Component {
     return (
       <>
         <h1 className='text-center bold mb-3'>לקוחות</h1>
-        <button className='btn btn-primary' onClick={() => this.props.history.push('/add-patient')}>
-          הוסף לקוח
-        </button>
+        <div className='d-flex justify-content-between'>
+          <button className='btn btn-primary ' onClick={() => this.props.history.push('/add-patient')}>
+            הוסף לקוח
+          </button>
+          <button className='btn btn-primary ' onClick={() => this.props.history.push('/add-patient')}>
+            תזכורות
+          </button>
+        </div>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <PatientsTable onCallToggle={this.handleCallToggle} patients={paginatedPatients} history={history} />
-        {!paginatedPatients[0] && !isFetching && (
+        {!searchQuery && !paginatedPatients[0] && !isFetching && (
           <div className='alert alert-light text-center' role='alert'>
             אין לקוחות
           </div>

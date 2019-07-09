@@ -37,3 +37,8 @@ input[type='date']::-webkit-inner-spin-button {
 input[type='date']::-webkit-clear-button {
   z-index: 1;
 }
+
+.a {
+  background-color: red;
+  width: 100%;
+}

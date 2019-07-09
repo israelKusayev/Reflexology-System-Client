@@ -1,11 +1,7 @@
 import React from 'react';
 
-const PatientName = ({ patient: { firstName, lastName, momName } }) => {
-  return (
-    <span>
-      {firstName + ' ' + lastName + ' ' + (momName ? '(' + momName + ')' : '')}
-    </span>
-  );
+const PatientName = ({ patient: { firstName, lastName, momName }, ...props }) => {
+  return <span {...props}>{firstName + ' ' + lastName + ' ' + (momName ? '(' + momName + ')' : '')}</span>;
 };
 
 export default PatientName;

@@ -7,7 +7,7 @@ import { getPatients, setCurrentPatient } from '../../actions/patientActions';
 class AddTreatment extends Component {
   state = {
     data: {
-      date: new Date().toISOString().split('T')[0],
+      date: new Date(),
       visitReason: '',
       treatmentNumber: 0,
       referredBy: '',
@@ -48,6 +48,7 @@ class AddTreatment extends Component {
 
   validate = () => {
     if (!this.state.data.treatmentNumber) return 'חובה למלא מספר טיפול';
+    if (Number.isNaN(this.state.data.treatmentNumber)) return 'מספר טיפול צריך להיות מספר';
     if (this.state.data.treatmentNumber <= 0) return 'מספר טיפול חייב להיות גדול יותר מ 0';
   };
 
@@ -70,7 +71,6 @@ class AddTreatment extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
   const lastTreatment = state.treatments[0];
-  debugger;
   return {
     error: state.error.msg,
     prevTreatment: {
