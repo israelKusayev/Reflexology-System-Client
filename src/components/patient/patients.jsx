@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getPatients, editPatient } from '../../actions/patientActions';
-import { removeTreatmnets } from '../../actions/treatmentActions';
 import { paginate } from '../../utils/paginate';
 import PatientsTable from './patientsTable';
 import Pagination from '../common/pagination';
@@ -11,13 +10,8 @@ class Patients extends Component {
   state = { searchQuery: '', currentPage: 1, pageSize: 8 };
 
   componentDidMount() {
-    this.initComponent();
-  }
-
-  initComponent = () => {
     if (!this.props.patients || this.props.patients.length === 0) this.props.getPatients();
-    this.props.removeTreatmnets();
-  };
+  }
 
   handleSearch = query => {
     this.setState({
@@ -64,6 +58,7 @@ class Patients extends Component {
     const filteredPatients = this.filterPatients();
     const filteredCount = filteredPatients.length;
     const paginatedPatients = paginate(filteredPatients, this.state.currentPage, this.state.pageSize);
+
     return (
       <>
         <h1 className='text-center bold mb-3'>לקוחות</h1>
@@ -106,5 +101,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPatients, editPatient, removeTreatmnets }
+  { getPatients, editPatient }
 )(Patients);

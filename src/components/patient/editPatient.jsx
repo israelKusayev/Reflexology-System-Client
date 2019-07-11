@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editPatient } from '../../actions/patientActions';
+import { editPatient, getPatients } from '../../actions/patientActions';
 import PatientForm from './patientForm';
 
 class EditPatient extends Component {
@@ -16,7 +16,8 @@ class EditPatient extends Component {
     error: ''
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    if (!this.props.patient) await this.props.getPatients();
     this.setState({ data: this.props.patient });
   }
 
@@ -64,5 +65,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { editPatient }
+  { editPatient, getPatients }
 )(EditPatient);

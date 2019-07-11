@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTreatment } from '../../actions/treatmentActions';
+import { addTreatment, getTreatments } from '../../actions/treatmentActions';
 import TreatmentForm from './treatmentForm';
 import { getPatients, setCurrentPatient } from '../../actions/patientActions';
 
@@ -18,7 +18,12 @@ class AddTreatment extends Component {
     error: ''
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    if (!this.props.patient) {
+      await this.props.getPatients();
+      await this.props.getTreatments(this.props.match.params.id);
+    }
+
     this.props.setCurrentPatient(this.props.match.params.id);
     const data = { ...this.state.data, ...this.props.prevTreatment };
     this.setState({ data });
@@ -83,5 +88,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { addTreatment, getPatients, setCurrentPatient }
+  { addTreatment, getPatients, getTreatments, setCurrentPatient }
 )(AddTreatment);

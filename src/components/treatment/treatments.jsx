@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getTreatments } from '../../actions/treatmentActions';
+import { getTreatments, removeTreatmnets } from '../../actions/treatmentActions';
 import { setCurrentPatient, getPatients } from '../../actions/patientActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -13,17 +13,14 @@ class Treatments extends Component {
   componentDidMount() {
     const { match, setCurrentPatient, getTreatments } = this.props;
 
+    this.props.removeTreatmnets(); // Remove old treatments from current store
+
     getTreatments(match.params.id);
     setCurrentPatient(match.params.id);
   }
 
   render() {
-    const {
-      treatments,
-      isFetching,
-      currectPatient,
-      isPatientsExists
-    } = this.props;
+    const { treatments, isFetching, currectPatient, isPatientsExists } = this.props;
     if (!isPatientsExists) {
       this.props.getPatients();
       return null;
@@ -33,11 +30,7 @@ class Treatments extends Component {
         <h1 className='text-center bold'>טיפולים</h1>
         <button
           className='btn btn-outline-primary my-3'
-          onClick={() =>
-            this.props.history.push(
-              '/add-treatment/' + this.props.match.params.id
-            )
-          }
+          onClick={() => this.props.history.push('/add-treatment/' + this.props.match.params.id)}
         >
           הוסף טיפול
         </button>
@@ -69,12 +62,10 @@ const mapStateToProps = (state, ownProps) => ({
   isPatientsExists: state.patients.patients.length !== 0,
   treatments: state.treatments,
   isFetching: state.loading,
-  currectPatient: state.patients.patients.find(
-    p => p._id === ownProps.match.params.id
-  )
+  currectPatient: state.patients.patients.find(p => p._id === ownProps.match.params.id)
 });
 
 export default connect(
   mapStateToProps,
-  { getTreatments, setCurrentPatient, getPatients }
+  { getTreatments, setCurrentPatient, getPatients, removeTreatmnets }
 )(Treatments);

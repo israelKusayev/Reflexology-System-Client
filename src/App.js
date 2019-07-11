@@ -20,9 +20,11 @@ import ProtectedRoute from './components/common/protectedRoute';
 import { getPatients } from './actions/patientActions';
 
 class App extends Component {
-  componentDidMount() {
-    this.props.getPatients();
-  }
+  // componentDidMount() {
+  //   // TODO: only if the user is login
+  //   this.props.getPatients();
+  // }
+
   handleLogout = () => {
     this.props.logout();
   };

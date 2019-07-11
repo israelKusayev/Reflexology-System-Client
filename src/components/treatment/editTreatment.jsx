@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editTreatment } from '../../actions/treatmentActions';
+import { editTreatment, getTreatments } from '../../actions/treatmentActions';
 import TreatmentForm from './treatmentForm';
 import { getPatients } from '../../actions/patientActions';
 
@@ -18,8 +18,15 @@ class EditTreatment extends Component {
     error: ''
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { treatment, currentPatient, getPatients, getTreatments } = this.props;
+    if (!treatment) {
+      await getTreatments(currentPatient);
+      await getPatients();
+    }
+
     const data = this.props.treatment;
+
     data.date = new Date(data.date);
     this.setState({ data });
   }
@@ -70,14 +77,16 @@ class EditTreatment extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
   const treatment = state.treatments.find(t => t._id === ownProps.match.params.id);
+
   return {
     treatment,
     error: state.error.msg,
-    patient: state.patients.patients.find(p => p._id === treatment.patientId)
+    patient: state.patients.patients.find(p => p._id === treatment.patientId),
+    currentPatient: state.patients.currentPatient
   };
 };
 
 export default connect(
   mapStateToProps,
-  { editTreatment, getPatients }
+  { editTreatment, getPatients, getTreatments }
 )(EditTreatment);
