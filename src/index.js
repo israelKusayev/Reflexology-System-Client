@@ -4,6 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import Root from './root';
 import App from './App';
 
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import './styles/mainStyles.css';
 import 'react-datepicker/dist/react-datepicker.css';
 

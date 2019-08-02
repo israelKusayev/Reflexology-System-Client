@@ -6,7 +6,9 @@ const BootstrapTextarea = ({
   onChange,
   value,
   autoFocus = false,
-  required = false
+  required = false,
+  rows = 2,
+  ...rest
 }) => {
   return (
     <div className='form-group'>
@@ -19,8 +21,13 @@ const BootstrapTextarea = ({
         id={name}
         name={name}
         value={value}
+        rows={value ? rows - 1 + value.split('\n').length : rows}
         autoFocus={autoFocus}
-        onChange={onChange}
+        {...rest}
+        onChange={e => {
+          e.target.rows = rows - 1 + e.target.value.split('\n').length;
+          onChange(e);
+        }}
       />
     </div>
   );

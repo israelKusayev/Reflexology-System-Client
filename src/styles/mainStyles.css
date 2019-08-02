@@ -71,6 +71,10 @@ td {
   box-shadow: 4px 10px 8px -6px rgba(217, 217, 217, 0.85);
 }
 
-.login-card {
-  padding: 20px 0 25px;
+.login-card .card-body {
+  padding: 2.25rem;
+}
+
+.patient-card .card-body {
+  padding: 2.25rem;
 }
