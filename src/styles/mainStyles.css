@@ -57,3 +57,20 @@ td {
   margin-left: 50px !important;
   background-color: red !important;
 } */
+/* .login-container {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  height: 300px;
+  margin: 1rem;
+  position: relative;
+  width: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+} */
+.card {
+  box-shadow: 4px 10px 8px -6px rgba(217, 217, 217, 0.85);
+}
+
+.login-card {
+  padding: 20px 0 25px;
+}

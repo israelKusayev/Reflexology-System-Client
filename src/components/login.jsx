@@ -7,9 +7,11 @@ export class Login extends Component {
     password: '',
     error: ''
   };
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
+
   handleSubmit = e => {
     e.preventDefault();
 
@@ -29,48 +31,52 @@ export class Login extends Component {
   render() {
     const { username, password, error } = this.state;
     return (
-      <div>
-        <h1 className='text-center bold '>התחברות</h1>
-        <div className='row'>
-          <form onSubmit={this.handleSubmit} className='mx-auto col-md-6'>
-            <div className='form-group'>
-              <label htmlFor='username'>שם משתמש</label>
-              <input
-                type='text'
-                className='form-control'
-                id='username'
-                value={username}
-                onChange={this.handleChange}
-                name='username'
-              />
+      <>
+        <h1 className='text-center bold'>התחברות</h1>
+        <div className='row justify-content-center' style={{ marginTop: '100px' }}>
+          <div className='card login-card col-md-7'>
+            <div className='card-body row'>
+              <form onSubmit={this.handleSubmit} className='mx-auto col-md-8'>
+                <div className='form-group'>
+                  <label htmlFor='username'>שם משתמש</label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='username'
+                    value={username}
+                    onChange={this.handleChange}
+                    name='username'
+                  />
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='password'>סיסמא</label>
+                  <input
+                    type='password'
+                    className='form-control'
+                    id='password'
+                    name='password'
+                    value={password}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                {error && (
+                  <div className='alert alert-danger' role='alert'>
+                    {error}
+                  </div>
+                )}
+                {this.props.error && (
+                  <div className='alert alert-danger' role='alert'>
+                    {this.props.error}
+                  </div>
+                )}
+                <button type='submit' className='btn btn-primary btn-block mt-4'>
+                  כניסה
+                </button>
+              </form>
             </div>
-            <div className='form-group'>
-              <label htmlFor='password'>סיסמא</label>
-              <input
-                type='password'
-                className='form-control'
-                id='password'
-                name='password'
-                value={password}
-                onChange={this.handleChange}
-              />
-            </div>
-            {error && (
-              <div className='alert alert-danger' role='alert'>
-                {error}
-              </div>
-            )}
-            {this.props.error && (
-              <div className='alert alert-danger' role='alert'>
-                {this.props.error}
-              </div>
-            )}
-            <button type='submit' className='btn btn-primary '>
-              כניסה
-            </button>
-          </form>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
