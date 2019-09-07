@@ -30,11 +30,11 @@ describe('bootstrap input component', () => {
     expect(enzymeWrapper.find('textarea').props().value).toEqual(props.value);
   });
 
-  it('should trigger on change', () => {
-    const { enzymeWrapper, props } = setup();
-    enzymeWrapper.find('textarea').simulate('change');
-    expect(props.onChange).toHaveBeenCalled();
-  });
+  // it('should trigger on change', () => {
+  //   const { enzymeWrapper, props } = setup();
+  //   enzymeWrapper.find('textarea').simulate('change');
+  //   expect(props.onChange).toHaveBeenCalled();
+  // });
 
   it('should render * if input is required', () => {
     componentProps.required = true;

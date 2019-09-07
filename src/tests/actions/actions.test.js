@@ -127,9 +127,7 @@ describe('patinet actions', () => {
         payload: { currentPatient }
       };
 
-      expect(patientActions.setCurrentPatient(currentPatient)).toEqual(
-        expectedAction
-      );
+      expect(patientActions.setCurrentPatient(currentPatient)).toEqual(expectedAction);
     });
   });
 
@@ -211,6 +209,7 @@ describe('treatment actions', () => {
           type: types.ADD_TREATMENT_SUCCESS,
           payload
         },
+        { type: types.REQUEST_FETCH_WITHOUT_LOADER },
         { type: types.CLEAR_ERRORS }
       ];
 
@@ -229,14 +228,13 @@ describe('treatment actions', () => {
           type: types.EDIT_TREATMENT_SUCCESS,
           payload
         },
+        { type: types.REQUEST_FETCH_WITHOUT_LOADER },
         { type: types.CLEAR_ERRORS }
       ];
 
-      return store
-        .dispatch(treatmentActions.editTreatment(payload))
-        .then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
+      return store.dispatch(treatmentActions.editTreatment(payload)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
     it('creates GET_TREATMENTS_SUCCESS when add treatment has been done', () => {
       payload = { treatment: { _id: '1234' } };
