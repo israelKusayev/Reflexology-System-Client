@@ -21,10 +21,6 @@ class PatientsTable extends Component {
     e.stopPropagation();
   };
 
-  handleCallToggle = patient => {
-    this.props.onCallToggle(patient);
-  };
-
   columns = [
     { label: 'שם משפחה', path: 'lastName' },
     { label: 'שם פרטי', path: 'firstName' },
@@ -42,34 +38,6 @@ class PatientsTable extends Component {
             {patient.age}
           </span>
           <ReactTooltip effect='solid' />
-        </>
-      )
-    },
-    {
-      label: 'V',
-      path: 'lastTreatmentCall',
-      content: patient => (
-        <>
-          <div
-            data-tip={patient.lastTreatmentCall ? moment(patient.lastTreatmentCallDate).format('DD/MM/YYYY') : ''}
-            className='custom-control custom-checkbox'
-            onClick={e => e.stopPropagation()}
-          >
-            <input
-              type='checkbox'
-              className='custom-control-input'
-              data-for={'v' + patient._id}
-              checked={patient.lastTreatmentCall}
-              readOnly={true}
-              id={patient._id}
-            />
-            <label
-              onClick={() => this.handleCallToggle(patient)}
-              className='custom-control-label'
-              htmlFor={patient._id}
-            />
-          </div>
-          <ReactTooltip id={'v' + patient._id} className='v-tooltip' effect='solid' />
         </>
       )
     },

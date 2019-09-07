@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDatePicker from 'react-datepicker';
 import moment from 'moment';
 
-const DatePicker = ({ label, name, onChange, value, required = false }) => {
+const DatePicker = ({ label, name, onChange, value, required = false, hasTime = true, ...rest }) => {
   return (
     <div className='form-group'>
       <label htmlFor={name}>
@@ -14,8 +14,13 @@ const DatePicker = ({ label, name, onChange, value, required = false }) => {
         className='form-control'
         todayButton={'היום'}
         selected={value}
-        onChange={e => onChange({ target: { name: name, value: moment(e).toDate() } })}
-        dateFormat='dd/MM/yyyy'
+        showTimeSelect={hasTime}
+        timeFormat='HH:mm'
+        timeCaption='שעה'
+        onChange={e => onChange({ target: { name: name, value: e ? moment(e).toDate() : '' } })}
+        // dateFormat='LL'
+        dateFormat={hasTime ? 'dd/MM/yyyy h:mm' : 'dd/MM/yyyy'}
+        {...rest}
       />
     </div>
   );

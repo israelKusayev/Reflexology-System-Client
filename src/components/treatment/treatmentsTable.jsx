@@ -27,8 +27,8 @@ export class TreatmentsTable extends Component {
       label: 'המלצות'
     },
     {
-      path: 'remarks',
-      label: 'הערות'
+      path: 'reminders',
+      label: 'תזכורת'
     },
     {
       key: 'editTreatment',

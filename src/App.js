@@ -14,16 +14,18 @@ import AddTreatment from './components/treatment/addTreatment';
 import Treatments from './components/treatment/treatments';
 import EditPatient from './components/patient/editPatient';
 import Treatment from './components/treatment/treatment';
-import { logout } from './actions/authActions';
 import EditTreatment from './components/treatment/editTreatment';
 import ProtectedRoute from './components/common/protectedRoute';
+import Reminders from './components/reminders/reminders';
+import { getRemindersCount } from './actions/reminderActions';
 import { getPatients } from './actions/patientActions';
+import { logout } from './actions/authActions';
 
 class App extends Component {
-  // componentDidMount() {
-  //   // TODO: only if the user is login
-  //   this.props.getPatients();
-  // }
+  componentDidMount() {
+    if (this.props.isAuthorized) this.props.getRemindersCount();
+    // this.props.getPatients();
+  }
 
   handleLogout = () => {
     this.props.logout();
@@ -53,6 +55,7 @@ class App extends Component {
             <ProtectedRoute path='/edit-treatment/:id' component={EditTreatment} />
             <ProtectedRoute path='/treatments/:id' component={Treatments} />
             <ProtectedRoute path='/treatment/:id' component={Treatment} />
+            <ProtectedRoute path='/reminders' component={Reminders} />
             <Route path='/404' component={NotFound} />
             <ProtectedRoute path='/' exact={true} component={Patients} />
             <Redirect to='/404' />
@@ -63,7 +66,11 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isAuthorized: !!state.auth.token
+});
+
 export default connect(
-  null,
-  { logout, getPatients }
+  mapStateToProps,
+  { logout, getPatients, getRemindersCount }
 )(App);

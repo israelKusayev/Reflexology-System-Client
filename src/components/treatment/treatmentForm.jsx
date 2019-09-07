@@ -39,7 +39,15 @@ const TreatmentForm = ({ patient, data, onSubmit, onChange, error }) => {
                   value={data.recommendations}
                   onChange={onChange}
                 />
-                <BootstrapTextarea label='הערות' name='remarks' value={data.remarks} onChange={onChange} />
+                <BootstrapTextarea label='תזכורות' name='reminders' value={data.reminders} onChange={onChange} />
+                <DatePicker
+                  hasTime={false}
+                  label='תאריך תזכורת'
+                  name='reminderDate'
+                  value={data.reminderDate}
+                  onChange={onChange}
+                  isClearable={true}
+                />
 
                 {error && (
                   <div className='alert alert-danger' role='alert'>

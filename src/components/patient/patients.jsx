@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPatients, editPatient } from '../../actions/patientActions';
+import { getPatients } from '../../actions/patientActions';
 import { paginate } from '../../utils/paginate';
 import PatientsTable from './patientsTable';
 import Pagination from '../common/pagination';
@@ -22,11 +22,6 @@ class Patients extends Component {
 
   handlePageChange = page => {
     this.setState({ currentPage: page });
-  };
-
-  handleCallToggle = patient => {
-    patient.lastTreatmentCall = !patient.lastTreatmentCall;
-    this.props.editPatient(patient);
   };
 
   filterPatients = () => {
@@ -66,12 +61,12 @@ class Patients extends Component {
           <button className='btn btn-primary ' onClick={() => this.props.history.push('/add-patient')}>
             הוסף לקוח
           </button>
-          <button className='btn btn-primary ' onClick={() => this.props.history.push('/add-patient')}>
-            תזכורות
+          <button className='btn btn-primary ' onClick={() => this.props.history.push('/reminders')}>
+            תזכורות ({this.props.remindersCount})
           </button>
         </div>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
-        <PatientsTable onCallToggle={this.handleCallToggle} patients={paginatedPatients} history={history} />
+        <PatientsTable patients={paginatedPatients} history={history} />
         {!searchQuery && !paginatedPatients[0] && !isFetching && (
           <div className='alert alert-light text-center' role='alert'>
             אין לקוחות
@@ -96,10 +91,11 @@ class Patients extends Component {
 
 const mapStateToProps = state => ({
   patients: state.patients.patients,
-  isFetching: state.loading
+  isFetching: state.loading,
+  remindersCount: state.reminders.newCount
 });
 
 export default connect(
   mapStateToProps,
-  { getPatients, editPatient }
+  { getPatients }
 )(Patients);

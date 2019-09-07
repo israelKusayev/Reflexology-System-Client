@@ -12,6 +12,7 @@ import {
 } from '../constants/actionTypes';
 import { clearErrors, setError } from './errorActions';
 import history from '../utils/history';
+import { getRemindersCount } from './reminderActions';
 
 // Add treatment to patinet
 export const addTreatment = treatment => (dispatch, getState) => {
@@ -20,6 +21,7 @@ export const addTreatment = treatment => (dispatch, getState) => {
     .post('/api/treatments', treatment, tokenConfig(getState().auth.token))
     .then(res => {
       dispatch({ type: ADD_TREATMENT_SUCCESS, payload: res.data });
+      dispatch(getRemindersCount());
       dispatch(clearErrors());
       history.push('/treatments/' + treatment.patientId);
     })
@@ -36,7 +38,7 @@ export const editTreatment = treatment => (dispatch, getState) => {
     .put('/api/treatments', treatment, tokenConfig(getState().auth.token))
     .then(res => {
       dispatch({ type: EDIT_TREATMENT_SUCCESS, payload: res.data });
-
+      dispatch(getRemindersCount());
       dispatch(clearErrors());
       history.push('/treatments/' + treatment.patientId);
     })

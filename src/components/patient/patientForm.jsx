@@ -1,7 +1,9 @@
 import React from 'react';
 import BootstrapInput from '../common/bootstrapInput';
+import InputMask from '../common/inputMask';
+import moment from 'moment';
 
-function PatientForm({ data, onSubmit, onChange, error }) {
+function PatientForm({ data, onSubmit, onChange, onBirthdayBlur, error }) {
   return (
     <>
       <div className='row justify-content-center' style={{ marginTop: '20px' }}>
@@ -25,6 +27,18 @@ function PatientForm({ data, onSubmit, onChange, error }) {
                 required={true}
               />
               <BootstrapInput label='שם האם' name='momName' value={data.momName} onChange={onChange} />
+
+              <InputMask
+                label='תאריך לידה'
+                name='birthday'
+                value={data.birthday}
+                onChange={onChange}
+                onBlur={e => {
+                  e.target.value = moment.unix(e.target.value, 'DD/MM/YYYY');
+                  onBirthdayBlur(e);
+                }}
+                mask='99/99/9999'
+              />
 
               <BootstrapInput label='גיל' name='age' value={data.age} onChange={onChange} />
 

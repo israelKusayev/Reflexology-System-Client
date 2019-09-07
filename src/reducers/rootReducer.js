@@ -5,11 +5,13 @@ import loadingReducer from './loadingReducer';
 import patientsReducer from './patientsReducer';
 import treatmentReducer from './treatmentsReducer';
 import { LOGOUT } from '../constants/actionTypes';
+import remindersReducer from './remindersReducer';
 
 const appReducer = combineReducers({
   auth: authReducer,
   patients: patientsReducer,
   treatments: treatmentReducer,
+  reminders: remindersReducer,
   error: errorReducer,
   loading: loadingReducer
 });

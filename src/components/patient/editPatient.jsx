@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editPatient, getPatients } from '../../actions/patientActions';
 import PatientForm from './patientForm';
+import { calcBirthday } from '../../utils/common';
 
 class EditPatient extends Component {
   state = {
@@ -9,6 +10,7 @@ class EditPatient extends Component {
       firstName: '',
       lastName: '',
       momName: '',
+      birthday: '',
       age: '',
       phone: '',
       email: ''
@@ -25,6 +27,20 @@ class EditPatient extends Component {
     const data = { ...this.state.data };
     data[target.name] = target.value;
     this.setState({ data });
+  };
+
+  handleBirthdayBlur = ({ target }) => {
+    const data = { ...this.state.data };
+    const diff = calcBirthday(target.value);
+    if (diff.isValid()) {
+      data.age = diff.years() + '.' + diff.months();
+      data[target.name] = target.value;
+      this.setState({ data, error: '' });
+    } else if (target.value) {
+      this.setState({ error: 'תאריך לידה לא תקין' });
+    } else {
+      this.setState({ error: '' });
+    }
   };
 
   handleSubmit = e => {
@@ -52,6 +68,7 @@ class EditPatient extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
           error={this.state.error}
+          onBirthdayBlur={this.handleBirthdayBlur}
           data={this.state.data || this.props.error}
         />
       </>

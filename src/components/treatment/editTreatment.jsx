@@ -13,7 +13,8 @@ class EditTreatment extends Component {
       referredBy: '',
       findings: '',
       recommendations: '',
-      remarks: ''
+      reminders: '',
+      reminderDate: null
     },
     error: ''
   };
@@ -24,10 +25,10 @@ class EditTreatment extends Component {
       await getTreatments(currentPatient);
       await getPatients();
     }
-
     const data = this.props.treatment;
 
     data.date = new Date(data.date);
+    data.reminderDate = data.reminderDate && new Date(data.reminderDate);
     this.setState({ data });
   }
 

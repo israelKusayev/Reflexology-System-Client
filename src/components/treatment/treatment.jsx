@@ -4,32 +4,20 @@ import moment from 'moment';
 import convertDayToText from '../../utils/convertDayToText';
 import PatientName from '../patient/patientName';
 
-const Treatment = ({
-  treatment,
-  currentPatient,
-  history,
-  isPatientsExists
-}) => {
+const Treatment = ({ treatment, currentPatient, history, isPatientsExists }) => {
   if (!isPatientsExists) {
     history.push('/patients');
     return null;
   }
-  const {
-    visitReason,
-    treatmentNumber,
-    referredBy,
-    findings,
-    recommendations,
-    remarks,
-    _id
-  } = treatment;
+
+  const { visitReason, treatmentNumber, referredBy, findings, recommendations, remarks, reminders, _id } = treatment;
 
   const date = moment(treatment.date);
 
   return (
     <>
       <h1 className='text-center bold'>טיפול</h1>
-      <h4 className='bold'>שם</h4>
+      <h4 className='bold'>פרטי לקוח</h4>
       <p>
         <PatientName patient={currentPatient} />
       </p>
@@ -72,6 +60,7 @@ const Treatment = ({
         </>
       )}
 
+      {/* ישן */}
       {remarks && (
         <>
           <h4 className='bold'>הערות</h4>
@@ -79,10 +68,14 @@ const Treatment = ({
         </>
       )}
 
-      <button
-        className='btn btn-outline-secondary'
-        onClick={() => history.push('/edit-treatment/' + _id)}
-      >
+      {reminders && (
+        <>
+          <h4 className='bold'>תזכורות</h4>
+          <p>{reminders} </p>
+        </>
+      )}
+
+      <button className='btn btn-outline-secondary' onClick={() => history.push('/edit-treatment/' + _id)}>
         ערוך
       </button>
     </>
@@ -91,9 +84,7 @@ const Treatment = ({
 const mapStateToProps = (state, ownProps) => ({
   isPatientsExists: state.patients.patients.length !== 0,
   treatment: state.treatments.find(t => t._id === ownProps.match.params.id),
-  currentPatient: state.patients.patients.find(
-    p => p._id === state.patients.currentPatient
-  )
+  currentPatient: state.patients.patients.find(p => p._id === state.patients.currentPatient)
 });
 
 export default connect(mapStateToProps)(Treatment);

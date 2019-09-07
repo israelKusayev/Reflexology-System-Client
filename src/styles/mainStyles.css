@@ -78,3 +78,37 @@ td {
 .patient-card .card-body {
   padding: 2.25rem;
 }
+.rtl {
+  direction: rtl;
+}
+.ltr {
+  direction: ltr;
+}
+.input-mask {
+  text-align: right;
+}
+.react-datepicker__close-icon {
+  left: 7px;
+  right: unset !important;
+}
+.filter-active {
+  background-color: gray;
+}
+
+.btn:focus,
+.btn.focus {
+  -webkit-box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
+}
+.w-70 {
+  width: 70%;
+}
+.react-select {
+  width: 20%;
+  margin-left: 25px;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -13,7 +13,8 @@ class AddTreatment extends Component {
       referredBy: '',
       findings: '',
       recommendations: '',
-      remarks: ''
+      reminders: '',
+      reminderDate: new Date().setDate(new Date().getDate() + 7)
     },
     error: ''
   };
