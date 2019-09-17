@@ -6,24 +6,25 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "axios": "^0.18.1",
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "formik": "^1.5.8",
     "joi": "^14.3.1",
-    "loadsh": "0.0.4",
     "moment": "^2.24.0",
-    "react": "^16.8.4",
+    "react": "^16.9.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-datepicker": "^2.7.0",
-    "react-dom": "^16.8.4",
+    "react-dom": "^16.9.0",
     "react-input-mask": "^2.0.4",
     "react-perfect-scrollbar": "^1.5.3",
-    "react-redux": "^6.0.1",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.1.0",
     "react-select": "^3.0.4",
     "react-tooltip": "^3.10.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,7 +47,8 @@
   ],
   "husky": {
     "hooks": {
-      "pre-push": "set CI=true npm test"
+      "pre-push": "set CI=true npm test",
+      "pre-commit": "lint-staged"
     }
   },
   "proxy": "http://localhost:4000",
@@ -54,10 +56,18 @@
     "coveralls": "^3.0.3",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
-    "husky": "^2.3.0",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
     "moxios": "^0.4.0",
-    "netlify-cli": "2.11.17",
+    "netlify-cli": "2.15.0",
+    "prettier": "^1.18.2",
     "react-test-renderer": "^16.8.6",
     "redux-mock-store": "^1.5.3"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

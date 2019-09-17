@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { editPatient, getPatients } from '../../actions/patientActions';
 import PatientForm from './patientForm';
-import { calcBirthday } from '../../utils/common';
+import { convertDateToString } from '../../utils/common';
 
-class EditPatient extends Component {
+class EditPatient extends PureComponent {
   state = {
     data: {
       firstName: '',
@@ -14,50 +14,19 @@ class EditPatient extends Component {
       age: '',
       phone: '',
       email: ''
-    },
-    error: ''
+    }
   };
 
   async componentDidMount() {
     if (!this.props.patient) await this.props.getPatients();
+    this.props.patient.birthday = convertDateToString(this.props.patient.birthday);
+    this.props.patient.age = this.props.patient.calculatedAge;
     this.setState({ data: this.props.patient });
   }
 
-  handleChange = ({ target }) => {
-    const data = { ...this.state.data };
-    data[target.name] = target.value;
-    this.setState({ data });
-  };
-
-  handleBirthdayBlur = ({ target }) => {
-    const data = { ...this.state.data };
-    const diff = calcBirthday(target.value);
-    if (diff.isValid()) {
-      data.age = diff.years() + '.' + diff.months();
-      data[target.name] = target.value;
-      this.setState({ data, error: '' });
-    } else if (target.value) {
-      this.setState({ error: 'תאריך לידה לא תקין' });
-    } else {
-      this.setState({ error: '' });
-    }
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-
-    const error = this.validate();
-
-    if (error) this.setState({ error });
-    else {
-      this.setState({ error: '' });
-      this.props.editPatient(this.state.data);
-    }
-  };
-
-  validate = () => {
-    if (!this.state.data.lastName.trim()) return 'חובה למלא שם משפחה';
-    if (!this.state.data.firstName.trim()) return 'חובה למלא שם פרטי';
+  handleSubmit = (values, { setSubmitting }) => {
+    this.props.editPatient(values);
+    setSubmitting(false);
   };
 
   render() {
@@ -67,9 +36,9 @@ class EditPatient extends Component {
         <PatientForm
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
-          error={this.state.error}
+          error={this.props.error}
           onBirthdayBlur={this.handleBirthdayBlur}
-          data={this.state.data || this.props.error}
+          data={this.state.data}
         />
       </>
     );

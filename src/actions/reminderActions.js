@@ -16,7 +16,10 @@ import { clearErrors, setError } from './errorActions';
 export const getReminders = filter => (dispatch, getState) => {
   dispatch({ type: REQUEST_FETCH_WITHOUT_LOADER });
   return axios
-    .get('/api/reminders' + '?newReminders=' + filter, tokenConfig(getState().auth.token))
+    .get(
+      `/api/reminders?newReminders=${filter}`,
+      tokenConfig(getState().auth.token)
+    )
     .then(res => {
       dispatch({ type: GET_REMINDERS_SUCCESS, payload: res.data });
       dispatch(clearErrors());

@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { getReminders, editReminder } from '../../actions/reminderActions';
 import { connect } from 'react-redux';
+import EditableTableCell from '../common/editableTableCell';
+import EditableReminderDate from './editableReminderDate';
 
 class Reminders extends Component {
   options = [{ value: 'all', label: 'כל התזכורות' }, { value: 'new', label: 'תזכורות חדשות' }];
@@ -68,20 +70,20 @@ class Reminders extends Component {
     {
       key: 'isChecked',
       label: '',
-      content: treatment => (
+      content: reminder => (
         <>
           <div className='custom-control custom-checkbox' onClick={e => e.stopPropagation()}>
             <input
               type='checkbox'
               className='custom-control-input'
-              checked={treatment.isReminderCompleted}
+              checked={reminder.isReminderCompleted}
               readOnly={true}
-              id={treatment._id}
+              id={reminder._id}
             />
             <label
-              onClick={() => this.handleCompleteChange(treatment)}
+              onClick={() => this.handleCompleteChange(reminder)}
               className='custom-control-label'
-              htmlFor={treatment._id}
+              htmlFor={reminder._id}
             />
           </div>
         </>
@@ -95,7 +97,21 @@ class Reminders extends Component {
       }
     },
     { path: 'reminders', label: 'תזכורת' },
-    { path: 'reminderDate', label: 'תאריך', content: treatment => moment(treatment.reminderDate).format('DD/MM/YYYY') }
+    {
+      path: 'reminderDate',
+      label: 'תאריך',
+      content: reminder => (
+        <EditableTableCell>
+          {({ isEditableMode, open, close }) => {
+            return !isEditableMode ? (
+              moment(reminder.reminderDate).format('DD/MM/YYYY')
+            ) : (
+              <EditableReminderDate onClose={close} reminder={reminder}></EditableReminderDate>
+            );
+          }}
+        </EditableTableCell>
+      )
+    }
   ];
 
   handleRowClick = treatment => {

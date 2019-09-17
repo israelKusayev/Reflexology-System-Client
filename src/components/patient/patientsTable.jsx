@@ -35,7 +35,7 @@ class PatientsTable extends Component {
       content: patient => (
         <>
           <span data-tip={patient.lastAgeUpdate ? moment(patient.lastAgeUpdate).format('DD/MM/YYYY') : ''}>
-            {patient.age}
+            {patient.calculatedAge}
           </span>
           <ReactTooltip effect='solid' />
         </>

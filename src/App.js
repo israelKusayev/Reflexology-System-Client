@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import './utils/axiosSettings';
+import './utils/yupGlobals';
 
 import Login from './components/login';
 import Loading from './components/loading';
@@ -39,26 +40,32 @@ class App extends Component {
     return (
       <>
         <Loading />
-        <span className='fixed-buttons '>
-          <span onClick={this.handleLogout} title='Logout'>
+        <span className="fixed-buttons ">
+          <span onClick={this.handleLogout} title="Logout">
             <FontAwesomeIcon icon={faSignOutAlt} />
           </span>
         </span>
 
-        <div className='container'>
+        <div className="container">
           <Switch>
-            <Route path='/login' component={Login} />
-            <ProtectedRoute path='/patients' component={Patients} />
-            <ProtectedRoute path='/add-patient' component={AddPatient} />
-            <ProtectedRoute path='/edit-patient/:id' component={EditPatient} />
-            <ProtectedRoute path='/add-treatment/:id' component={AddTreatment} />
-            <ProtectedRoute path='/edit-treatment/:id' component={EditTreatment} />
-            <ProtectedRoute path='/treatments/:id' component={Treatments} />
-            <ProtectedRoute path='/treatment/:id' component={Treatment} />
-            <ProtectedRoute path='/reminders' component={Reminders} />
-            <Route path='/404' component={NotFound} />
-            <ProtectedRoute path='/' exact={true} component={Patients} />
-            <Redirect to='/404' />
+            <Route path="/login" component={Login} />
+            <ProtectedRoute path="/patients" component={Patients} />
+            <ProtectedRoute path="/add-patient" component={AddPatient} />
+            <ProtectedRoute path="/edit-patient/:id" component={EditPatient} />
+            <ProtectedRoute
+              path="/add-treatment/:id"
+              component={AddTreatment}
+            />
+            <ProtectedRoute
+              path="/edit-treatment/:id"
+              component={EditTreatment}
+            />
+            <ProtectedRoute path="/treatments/:id" component={Treatments} />
+            <ProtectedRoute path="/treatment/:id" component={Treatment} />
+            <ProtectedRoute path="/reminders" component={Reminders} />
+            <Route path="/404" component={NotFound} />
+            <ProtectedRoute path="/" exact={true} component={Patients} />
+            <Redirect to="/404" />
           </Switch>
         </div>
       </>
