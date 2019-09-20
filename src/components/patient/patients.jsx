@@ -31,6 +31,7 @@ class Patients extends Component {
     if (!searchQuery) return patients;
 
     return patients.filter(patient => {
+      /* eslint-disable no-unused-vars */
       for (let name in patient) {
         if (name === '_id' || name === 'createdAt') continue;
         if (
@@ -56,24 +57,24 @@ class Patients extends Component {
 
     return (
       <>
-        <h1 className='text-center bold mb-3'>לקוחות</h1>
-        <div className='d-flex justify-content-between'>
-          <button className='btn btn-primary ' onClick={() => this.props.history.push('/add-patient')}>
+        <h1 className="text-center bold mb-3">לקוחות</h1>
+        <div className="d-flex justify-content-between">
+          <button className="btn btn-primary " onClick={() => this.props.history.push('/add-patient')}>
             הוסף לקוח
           </button>
-          <button className='btn btn-primary ' onClick={() => this.props.history.push('/reminders')}>
+          <button className="btn btn-primary " onClick={() => this.props.history.push('/reminders')}>
             תזכורות ({this.props.remindersCount})
           </button>
         </div>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <PatientsTable patients={paginatedPatients} history={history} />
         {!searchQuery && !paginatedPatients[0] && !isFetching && (
-          <div className='alert alert-light text-center' role='alert'>
+          <div className="alert alert-light text-center" role="alert">
             אין לקוחות
           </div>
         )}
         {searchQuery && !filteredCount && (
-          <div className='alert alert-warning' role='alert'>
+          <div className="alert alert-warning" role="alert">
             אין תוצאות עבור&nbsp;
             {searchQuery}
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import FormLabel from './formLabel';
 
@@ -16,7 +16,6 @@ const BootstrapTextarea = ({
 }) => {
   const textareaClassName = `form-control  ${error && touched ? 'is-invalid' : value ? 'is-valid' : ''}`;
   const labelClassName = error && touched ? 'text-danger' : value ? 'text-success' : '';
-  const [height, setHeight] = useState('100px');
   return (
     <div className="form-group">
       <FormLabel className={labelClassName} name={name} required={required}>
@@ -31,8 +30,6 @@ const BootstrapTextarea = ({
         autoFocus={autoFocus}
         {...rest}
         onKeyDown={e => {
-          console.log(e.target.scrollHeight);
-
           e.target.style.height = 'inherit';
           e.target.style.height = `${e.target.scrollHeight}px`;
         }}

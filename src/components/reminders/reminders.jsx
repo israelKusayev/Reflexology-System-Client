@@ -29,6 +29,8 @@ class Reminders extends Component {
     if (!searchQuery) return reminders;
     // TODO: refactor
     return reminders.filter(reminder => {
+      /* eslint-disable no-unused-vars */
+
       for (let name in reminder) {
         if (name === '_id') continue;
         if (name === 'patient' && reminder[name] && reminder[name].length > 0) {
@@ -54,6 +56,8 @@ class Reminders extends Component {
         )
           return true;
       }
+      /* eslint-enable no-unused-vars */
+
       return false;
     });
   };

@@ -16,7 +16,7 @@ const RemindersTable = ({ reminders, handleCompleteChange, history }) => {
             type="checkbox"
             className="custom-control-input"
             checked={reminder.isReminderCompleted}
-            // readOnly={true}
+            readOnly={true}
             id={reminder._id}
           />
           <label
