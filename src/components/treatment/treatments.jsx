@@ -27,20 +27,18 @@ class Treatments extends Component {
     }
     return (
       <>
-        <h1 className='text-center bold'>טיפולים</h1>
+        <h1 className="text-center bold">טיפולים</h1>
         <button
-          className='btn btn-outline-primary my-3'
-          onClick={() => this.props.history.push('/add-treatment/' + this.props.match.params.id)}
-        >
+          className="btn btn-outline-primary my-3"
+          onClick={() => this.props.history.push('/add-treatment/' + this.props.match.params.id)}>
           הוסף טיפול
         </button>
-        <span className='ml-3 bold'>
+        <span className="ml-3 bold">
           <PatientName patient={currectPatient} />
         </span>
         <button
-          className='btn btn-outline-primary float-right my-3 text-center'
-          onClick={() => history.push('/patients')}
-        >
+          className="btn btn-outline-primary float-right my-3 text-center"
+          onClick={() => history.push('/patients')}>
           חזור ללקוחות
           <span>
             &nbsp;&nbsp;
@@ -49,7 +47,7 @@ class Treatments extends Component {
         </button>
         <TreatmentsTable treatments={treatments} history={history} />
         {!treatments[0] && !isFetching && (
-          <div className='alert alert-light text-center' role='alert'>
+          <div className="alert alert-light text-center" role="alert">
             אין טיפולים
           </div>
         )}

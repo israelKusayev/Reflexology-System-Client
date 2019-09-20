@@ -1,78 +1,62 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/authActions';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import BootstrapInput from './common/bootstrapInput';
+
 export class Login extends Component {
-  state = {
-    username: '',
-    password: '',
-    error: ''
-  };
+  initialValues = { username: '', password: '' };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
+  loginSchema = Yup.object().shape({
+    username: Yup.string().required('חובה למלא שם משתמש'),
+    password: Yup.string().required('חובה למלא סיסמא')
+  });
 
-  handleSubmit = e => {
-    e.preventDefault();
-
-    const { username, password } = this.state;
-
-    if (!username.trim()) this.setState({ error: 'חובה למלא שם משתמש' });
-    else if (!password.trim()) this.setState({ error: 'חובה למלא סיסמא' });
-    else {
-      this.setState({ error: '' });
-
-      const { state } = this.props.location;
-      const returnUrl = state ? state.from.pathname : '';
-      this.props.login({ username, password }, returnUrl);
-    }
+  handleSubmit = (values, { setSubmitting }) => {
+    const { state } = this.props.location;
+    const returnUrl = state ? state.from.pathname : '';
+    this.props.login(values, returnUrl);
+    setSubmitting(false);
   };
 
   render() {
-    const { username, password, error } = this.state;
     return (
       <>
-        <h1 className='text-center bold'>התחברות</h1>
-        <div className='row justify-content-center' style={{ marginTop: '100px' }}>
-          <div className='card login-card col-md-7'>
-            <div className='card-body row'>
-              <form onSubmit={this.handleSubmit} className='mx-auto col-md-8'>
-                <div className='form-group'>
-                  <label htmlFor='username'>שם משתמש</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='username'
-                    value={username}
-                    onChange={this.handleChange}
-                    name='username'
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='password'>סיסמא</label>
-                  <input
-                    type='password'
-                    className='form-control'
-                    id='password'
-                    name='password'
-                    value={password}
-                    onChange={this.handleChange}
-                  />
-                </div>
-                {error && (
-                  <div className='alert alert-danger' role='alert'>
-                    {error}
-                  </div>
+        <h1 className="text-center bold">התחברות</h1>
+        <div className="row justify-content-center" style={{ marginTop: '100px' }}>
+          <div className="card login-card col-md-7">
+            <div className="card-body row">
+              <Formik initialValues={this.initialValues} onSubmit={this.handleSubmit}>
+                {({ isSubmitting, errors, touched, values }) => (
+                  <Form className="mx-auto col-md-8">
+                    <BootstrapInput
+                      label="שם משתמש"
+                      name="username"
+                      autoFocus
+                      error={errors.username}
+                      touched={touched.username}
+                      value={values.username}
+                    />
+                    <BootstrapInput
+                      label="סיסמא"
+                      name="password"
+                      type="password"
+                      error={errors.password}
+                      touched={touched.password}
+                      value={values.password}
+                    />
+                    {this.props.error && (
+                      <div className="alert alert-danger" role="alert">
+                        {this.props.error}
+                      </div>
+                    )}
+                    <button disabled={isSubmitting} type="submit" className="btn btn-primary btn-block mt-4">
+                      כניסה
+                    </button>
+                  </Form>
                 )}
-                {this.props.error && (
-                  <div className='alert alert-danger' role='alert'>
-                    {this.props.error}
-                  </div>
-                )}
-                <button type='submit' className='btn btn-primary btn-block mt-4'>
-                  כניסה
-                </button>
-              </form>
+              </Formik>
             </div>
           </div>
         </div>

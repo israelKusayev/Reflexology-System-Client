@@ -30,32 +30,13 @@ class AddTreatment extends Component {
     this.setState({ data });
   }
 
-  handleChange = ({ target }) => {
-    const data = { ...this.state.data };
-    data[target.name] = target.value;
-    this.setState({ data });
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
-
-    const error = this.validate();
-    if (error) this.setState({ error });
-    else {
-      this.setState({ error: '' });
-
-      await this.props.addTreatment({
-        ...this.state.data,
-        patientId: this.props.match.params.id
-      });
-      this.props.getPatients();
-    }
-  };
-
-  validate = () => {
-    if (!this.state.data.treatmentNumber) return 'חובה למלא מספר טיפול';
-    if (Number.isNaN(this.state.data.treatmentNumber)) return 'מספר טיפול צריך להיות מספר';
-    if (this.state.data.treatmentNumber <= 0) return 'מספר טיפול חייב להיות גדול יותר מ 0';
+  handleSubmit = async (values, { setSubmitting }) => {
+    await this.props.addTreatment({
+      ...values,
+      patientId: this.props.match.params.id
+    });
+    this.props.getPatients();
+    setSubmitting(false);
   };
 
   render() {
@@ -63,7 +44,7 @@ class AddTreatment extends Component {
 
     return (
       <>
-        <h1 className='text-center bold'>הוסף טיפול</h1>
+        <h1 className="text-center bold">הוסף טיפול</h1>
         <TreatmentForm
           patient={this.props.patient}
           data={data}
@@ -80,10 +61,14 @@ const mapStateToProps = (state, ownProps) => {
   return {
     error: state.error.msg,
     prevTreatment: {
-      treatmentNumber: lastTreatment ? lastTreatment.treatmentNumber + 1 || 1 : 1,
+      treatmentNumber: lastTreatment
+        ? lastTreatment.treatmentNumber + 1 || 1
+        : 1,
       referredBy: lastTreatment ? lastTreatment.referredBy : ''
     },
-    patient: state.patients.patients.find(p => p._id === ownProps.match.params.id)
+    patient: state.patients.patients.find(
+      p => p._id === ownProps.match.params.id
+    )
   };
 };
 

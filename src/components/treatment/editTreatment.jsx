@@ -20,7 +20,12 @@ class EditTreatment extends Component {
   };
 
   async componentDidMount() {
-    const { treatment, currentPatient, getPatients, getTreatments } = this.props;
+    const {
+      treatment,
+      currentPatient,
+      getPatients,
+      getTreatments
+    } = this.props;
     if (!treatment) {
       await getTreatments(currentPatient);
       await getPatients();
@@ -32,31 +37,12 @@ class EditTreatment extends Component {
     this.setState({ data });
   }
 
-  handleChange = ({ target }) => {
-    const data = { ...this.state.data };
-    data[target.name] = target.value;
-    this.setState({ data });
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
-
-    const error = this.validate();
-    if (error) this.setState({ error });
-    else {
-      this.setState({ error: '' });
-
-      await this.props.editTreatment({
-        ...this.state.data
-      });
-      this.props.getPatients();
-    }
-  };
-
-  validate = () => {
-    if (!this.state.data.treatmentNumber) return 'חובה למלא מספר טיפול';
-    if (Number.isNaN(this.state.data.treatmentNumber)) return 'מספר טיפול צריך להיות מספר';
-    if (this.state.data.treatmentNumber <= 0) return 'מספר טיפול חייב להיות גדול יותר מ 0';
+  handleSubmit = async (values, { setSubmitting }) => {
+    await this.props.editTreatment({
+      ...values
+    });
+    this.props.getPatients();
+    setSubmitting(false);
   };
 
   render() {
@@ -64,7 +50,7 @@ class EditTreatment extends Component {
 
     return (
       <>
-        <h1 className='text-center bold'>ערוך טיפול</h1>
+        <h1 className="text-center bold">ערוך טיפול</h1>
         <TreatmentForm
           patient={this.props.patient}
           data={data}
@@ -77,7 +63,9 @@ class EditTreatment extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-  const treatment = state.treatments.find(t => t._id === ownProps.match.params.id);
+  const treatment = state.treatments.find(
+    t => t._id === ownProps.match.params.id
+  );
 
   return {
     treatment,

@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import InputMask from '../common/inputMask';
+import ReactInputMask from 'react-input-mask';
 import { convertDateToString } from '../../utils/common';
 
 const EditableReminderDate = ({ reminder, onClose }) => {
   const [date, setDate] = useState(convertDateToString(reminder.reminderDate));
   return (
-    <span className='editable-date-container'>
-      <InputMask
-        className='editable-date'
-        label=''
-        name='birthday'
-        value={date}
-        onChange={e => setDate(e.target.value)}
-        mask='99/99/9999'
-        onBlur={onClose}
-        autoFocus
-      ></InputMask>
-    </span>
+    <div className="form-group">
+      <span className="editable-date-container">
+        <ReactInputMask
+          className="form-control ltr input-mask editable-date"
+          value={date}
+          onChange={e => setDate(e.target.value)}
+          mask="99/99/9999"
+          onBlur={onClose}
+          autoFocus></ReactInputMask>
+      </span>
+    </div>
   );
 };
 export default EditableReminderDate;

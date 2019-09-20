@@ -1,39 +1,43 @@
-import React from 'react';
-import { Field } from 'formik';
+import React, { useState } from 'react';
+import { Field, ErrorMessage } from 'formik';
+import FormLabel from './formLabel';
 
 const BootstrapTextarea = ({
   label,
   name,
   onChange,
   value,
+  touched,
   error = '',
   autoFocus = false,
   required = false,
   rows = 2,
   ...rest
 }) => {
-  const textareaClassName = `form-control  ${error ? 'is-invalid' : value ? 'is-valid' : ''}`;
-  const labelClassName = error ? 'text-danger' : value ? 'text-success' : '';
-
+  const textareaClassName = `form-control  ${error && touched ? 'is-invalid' : value ? 'is-valid' : ''}`;
+  const labelClassName = error && touched ? 'text-danger' : value ? 'text-success' : '';
+  const [height, setHeight] = useState('100px');
   return (
-    <div className='form-group'>
-      <label className={labelClassName} htmlFor={name}>
-        {required ? <span className='text-danger'>* </span> : null}
+    <div className="form-group">
+      <FormLabel className={labelClassName} name={name} required={required}>
         {label}
-      </label>
+      </FormLabel>
       <Field
         className={textareaClassName}
         id={name}
         name={name}
-        rows={value ? rows - 1 + value.split('\n').length : rows}
+        component="textarea"
+        style={{ overflow: 'hidden' }}
         autoFocus={autoFocus}
         {...rest}
-        // onChange={e => {
-        //   e.target.rows = rows - 1 + e.target.value.split('\n').length;
-        //   onChange(e);
-        // }}
+        onKeyDown={e => {
+          console.log(e.target.scrollHeight);
+
+          e.target.style.height = 'inherit';
+          e.target.style.height = `${e.target.scrollHeight}px`;
+        }}
       />
-      {error && <small className='text-danger'>{error}</small>}
+      <ErrorMessage component="small" className="text-danger" name={name} />
     </div>
   );
 };

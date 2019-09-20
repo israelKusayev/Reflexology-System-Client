@@ -1,33 +1,46 @@
 import React from 'react';
 import ReactDatePicker from 'react-datepicker';
-import moment from 'moment';
+import { ErrorMessage } from 'formik';
+import FormLabel from './formLabel';
 
-const DatePicker = ({ label, name, onChange, value, error = '', required = false, hasTime = true, ...rest }) => {
-  const inputClassName = `form-control  ${error ? 'is-invalid' : value ? 'is-valid' : ''}`;
-  const labelClassName = error ? 'text-danger' : value ? 'text-success' : '';
+const DatePicker = ({
+  label,
+  name,
+  onChange,
+  value,
+  touched,
+  error = '',
+  required = false,
+  hasTime = true,
+  ...rest
+}) => {
+  const inputClassName = `form-control  ${error && touched ? 'is-invalid' : value ? 'is-valid' : ''}`;
+  const labelClassName = error && touched ? 'text-danger' : value ? 'text-success' : '';
 
   return (
-    <div className='form-group'>
-      <label className={labelClassName} htmlFor={name}>
-        {required ? <span className='text-danger'>* </span> : null}
+    <div className="form-group">
+      <FormLabel className={labelClassName} name={name} required={required}>
         {label}
-      </label>
+      </FormLabel>
       <br />
       <ReactDatePicker
         className={inputClassName}
-        todayButton={'היום'}
+        todayButton="היום"
         selected={value}
         showTimeSelect={hasTime}
-        timeFormat='HH:mm'
-        timeCaption='שעה'
-        onChange={e => onChange({ target: { name: name, value: e ? moment(e).toDate() : '' } })}
+        timeFormat="HH:mm"
+        timeCaption="שעה"
+        onChange={val => {
+          console.log(name, val);
+          onChange(name, val);
+        }}
         // dateFormat='LL'
         dateFormat={hasTime ? 'dd/MM/yyyy h:mm' : 'dd/MM/yyyy'}
         {...rest}
       />
-      {error && <small className='text-danger d-block'>{error}</small>}
+      <ErrorMessage component="small" className="text-danger d-block" name={name} />
     </div>
   );
 };
 
-export default DatePicker;
+export default React.memo(DatePicker);

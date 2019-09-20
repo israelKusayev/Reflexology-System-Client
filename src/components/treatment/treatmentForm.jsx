@@ -4,65 +4,109 @@ import BootstrapTextarea from '../common/bootstrapTextarea';
 import DatePicker from '../common/datePicker';
 import PatientName from '../patient/patientName';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
-const TreatmentForm = ({ patient, data, onSubmit, onChange, error }) => {
+const TreatmentSchema = Yup.object().shape({
+  date: Yup.date()
+    .required('שדה חובה')
+    .nullable(),
+  treatmentNumber: Yup.number()
+    .required('שדה חובה')
+    .min(0, 'ערך לא יכול להיות שלילי')
+});
+
+const TreatmentForm = ({ patient, data, onSubmit, error }) => {
   return (
-    <div className='row justify-content-center' style={{ marginTop: '20px' }}>
-      <div className='card treatment-card col-md-7' style={{ padding: 0 }}>
-        <div className='card-header'>
-          <PatientName className='mb-2 d-block bold' patient={patient || {}} />
+    <div className="row justify-content-center" style={{ marginTop: '20px' }}>
+      <div className="card treatment-card col-md-7" style={{ padding: 0 }}>
+        <div className="card-header">
+          <PatientName className="mb-2 d-block bold" patient={patient || {}} />
         </div>
-        <form onSubmit={onSubmit}>
-          <PerfectScrollbar style={{ maxHeight: '70vh', direction: 'ltr' }} options={{ suppressScrollX: true }}>
-            <div className='card-body row' style={{ direction: 'rtl' }}>
-              <div className='col-md-8 mx-auto'>
-                <DatePicker label='תאריך' name='date' value={data.date} onChange={onChange} />
-                <BootstrapTextarea
-                  label='סיבת ביקור'
-                  name='visitReason'
-                  value={data.visitReason}
-                  onChange={onChange}
-                  autoFocus={true}
-                />
-                <BootstrapInput
-                  label='מספר טיפול'
-                  name='treatmentNumber'
-                  type='number'
-                  value={data.treatmentNumber}
-                  onChange={onChange}
-                />
-                <BootstrapInput label='הופנה ע"י' name='referredBy' value={data.referredBy} onChange={onChange} />
-                <BootstrapTextarea label='ממצאים' name='findings' value={data.findings} onChange={onChange} />
-                <BootstrapTextarea
-                  label='המלצות'
-                  name='recommendations'
-                  value={data.recommendations}
-                  onChange={onChange}
-                />
-                <BootstrapTextarea label='תזכורות' name='reminders' value={data.reminders} onChange={onChange} />
-                <DatePicker
-                  hasTime={false}
-                  label='תאריך תזכורת'
-                  name='reminderDate'
-                  value={data.reminderDate}
-                  onChange={onChange}
-                  isClearable={true}
-                />
+        <Formik enableReinitialize onSubmit={onSubmit} initialValues={data} validationSchema={TreatmentSchema}>
+          {({ isSubmitting, errors, touched, values, setFieldValue }) => (
+            <Form>
+              <PerfectScrollbar style={{ maxHeight: '70vh', direction: 'ltr' }} options={{ suppressScrollX: true }}>
+                <div className="card-body row" style={{ direction: 'rtl' }}>
+                  <div className="col-md-8 mx-auto">
+                    <DatePicker
+                      label="תאריך"
+                      name="date"
+                      value={values.date}
+                      error={errors.date}
+                      touched={touched.date}
+                      onChange={setFieldValue}
+                    />
+                    <BootstrapTextarea
+                      label="סיבת ביקור"
+                      name="visitReason"
+                      error={errors.visitReason}
+                      touched={touched.visitReason}
+                      value={values.visitReason}
+                      autoFocus={true}
+                    />
+                    <BootstrapInput
+                      label="מספר טיפול"
+                      name="treatmentNumber"
+                      type="number"
+                      error={errors.treatmentNumber}
+                      touched={touched.treatmentNumber}
+                      value={values.treatmentNumber}
+                    />
+                    <BootstrapInput
+                      label='הופנה ע"י'
+                      name="referredBy"
+                      error={errors.referredBy}
+                      touched={touched.referredBy}
+                      value={values.referredBy}
+                    />
+                    <BootstrapTextarea
+                      label="ממצאים"
+                      name="findings"
+                      error={errors.findings}
+                      touched={touched.findings}
+                      value={values.findings}
+                    />
+                    <BootstrapTextarea
+                      label="המלצות"
+                      name="recommendations"
+                      error={errors.recommendations}
+                      touched={touched.recommendations}
+                      value={values.recommendations}
+                    />
+                    <BootstrapTextarea
+                      label="תזכורות"
+                      name="reminders"
+                      error={errors.reminders}
+                      touched={touched.reminders}
+                      value={values.reminders}
+                    />
+                    <DatePicker
+                      hasTime={false}
+                      label="תאריך תזכורת"
+                      name="reminderDate"
+                      onChange={setFieldValue}
+                      value={values.reminderDate}
+                      minDate={new Date()}
+                      isClearable={true}
+                    />
 
-                {error && (
-                  <div className='alert alert-danger' role='alert'>
-                    {error}
+                    {error && (
+                      <div className="alert alert-danger" role="alert">
+                        {error}
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
+              </PerfectScrollbar>
+              <div className="card-footer">
+                <button disabled={isSubmitting} type="submit" className="btn btn-primary btn-block">
+                  שמור
+                </button>
               </div>
-            </div>
-          </PerfectScrollbar>
-          <div className='card-footer'>
-            <button type='submit' className='btn btn-primary btn-block'>
-              שמור
-            </button>
-          </div>
-        </form>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

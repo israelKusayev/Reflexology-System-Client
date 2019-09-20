@@ -13,49 +13,50 @@ const Treatment = ({ treatment, currentPatient, history, isPatientsExists }) => 
   const { visitReason, treatmentNumber, referredBy, findings, recommendations, remarks, reminders, _id } = treatment;
 
   const date = moment(treatment.date);
+  console.log(findings.split('\\n'));
 
   return (
     <>
-      <h1 className='text-center bold'>טיפול</h1>
-      <h4 className='bold'>פרטי לקוח</h4>
+      <h1 className="text-center bold">טיפול</h1>
+      <h4 className="bold">פרטי לקוח</h4>
       <p>
         <PatientName patient={currentPatient} />
       </p>
 
-      <h4 className='bold'>תאריך</h4>
+      <h4 className="bold">תאריך</h4>
       <p>
         {date.format('DD/MM/YYYY')} יום {convertDayToText(date.day())}
       </p>
 
       {visitReason && (
         <>
-          <h4 className='bold'>סיבת ביקור</h4>
+          <h4 className="bold">סיבת ביקור</h4>
           <p>{visitReason} </p>
         </>
       )}
 
       <>
-        <h4 className='bold'>מספר טיפול</h4>
+        <h4 className="bold">מספר טיפול</h4>
         <p>{treatmentNumber} </p>
       </>
 
       {referredBy && (
         <>
-          <h4 className='bold'>הופנה ע"י</h4>
+          <h4 className="bold">הופנה ע"י</h4>
           <p>{referredBy} </p>
         </>
       )}
 
       {findings && (
         <>
-          <h4 className='bold'>ממצאים</h4>
+          <h4 className="bold">ממצאים</h4>
           <p>{findings} </p>
         </>
       )}
 
       {recommendations && (
         <>
-          <h4 className='bold'>המלצות</h4>
+          <h4 className="bold">המלצות</h4>
           <p>{recommendations} </p>
         </>
       )}
@@ -63,19 +64,19 @@ const Treatment = ({ treatment, currentPatient, history, isPatientsExists }) => 
       {/* ישן */}
       {remarks && (
         <>
-          <h4 className='bold'>הערות</h4>
+          <h4 className="bold">הערות</h4>
           <p>{remarks} </p>
         </>
       )}
 
       {reminders && (
         <>
-          <h4 className='bold'>תזכורות</h4>
+          <h4 className="bold">תזכורות</h4>
           <p>{reminders} </p>
         </>
       )}
 
-      <button className='btn btn-outline-secondary' onClick={() => history.push('/edit-treatment/' + _id)}>
+      <button className="btn btn-outline-secondary" onClick={() => history.push('/edit-treatment/' + _id)}>
         ערוך
       </button>
     </>
