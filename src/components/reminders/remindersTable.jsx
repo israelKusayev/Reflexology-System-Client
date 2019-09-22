@@ -5,7 +5,7 @@ import EditableReminderDate from './editableReminderDate';
 import EditableTableCell from '../common/editableTableCell';
 import moment from 'moment';
 
-const RemindersTable = ({ reminders, handleCompleteChange, history }) => {
+const RemindersTable = ({ reminders, onCompleteChange, onDateChange, editReminder, history = undefined }) => {
   const columns = [
     {
       key: 'isChecked',
@@ -19,11 +19,7 @@ const RemindersTable = ({ reminders, handleCompleteChange, history }) => {
             readOnly={true}
             id={reminder._id}
           />
-          <label
-            onClick={() => handleCompleteChange(reminder)}
-            className="custom-control-label"
-            htmlFor={reminder._id}
-          />
+          <label onClick={() => onCompleteChange(reminder)} className="custom-control-label" htmlFor={reminder._id} />
         </div>
       )
     },
@@ -44,7 +40,13 @@ const RemindersTable = ({ reminders, handleCompleteChange, history }) => {
             return !isEditableMode ? (
               moment(reminder.reminderDate).format('DD/MM/YYYY')
             ) : (
-              <EditableReminderDate onClose={close} reminder={reminder}></EditableReminderDate>
+              <EditableReminderDate
+                onClose={reminderDate => {
+                  close();
+                  onDateChange(reminder._id, reminderDate);
+                }}
+                reminder={reminder}
+              ></EditableReminderDate>
             );
           }}
         </EditableTableCell>

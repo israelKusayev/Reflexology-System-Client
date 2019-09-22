@@ -5,6 +5,7 @@ import { paginate } from '../../utils/paginate';
 import PatientsTable from './patientsTable';
 import Pagination from '../common/pagination';
 import SearchBox from '../common/searchBox';
+import { filter } from '../../utils/common';
 
 class Patients extends Component {
   state = { searchQuery: '', currentPage: 1, pageSize: 8 };
@@ -30,21 +31,7 @@ class Patients extends Component {
 
     if (!searchQuery) return patients;
 
-    return patients.filter(patient => {
-      /* eslint-disable no-unused-vars */
-      for (let name in patient) {
-        if (name === '_id' || name === 'createdAt') continue;
-        if (
-          patient[name] &&
-          patient[name]
-            .toString()
-            .toLowerCase()
-            .includes(searchQuery)
-        )
-          return true;
-      }
-      return false;
-    });
+    return patients.filter(patient => filter(patient, searchQuery));
   };
 
   render() {

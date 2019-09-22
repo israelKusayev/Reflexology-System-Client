@@ -1,5 +1,5 @@
 //@ts-check
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Select from 'react-select';
 import SearchBox from '../common/searchBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,8 +7,9 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { getReminders, editReminder } from '../../actions/reminderActions';
 import { connect } from 'react-redux';
 import RemindersTable from './remindersTable';
+import { filter } from '../../utils/common';
 
-class Reminders extends Component {
+class Reminders extends PureComponent {
   options = [{ value: 'all', label: 'כל התזכורות' }, { value: 'new', label: 'תזכורות חדשות' }];
 
   state = {
@@ -27,44 +28,20 @@ class Reminders extends Component {
     const { searchQuery } = this.state;
 
     if (!searchQuery) return reminders;
-    // TODO: refactor
-    return reminders.filter(reminder => {
-      /* eslint-disable no-unused-vars */
 
-      for (let name in reminder) {
-        if (name === '_id') continue;
-        if (name === 'patient' && reminder[name] && reminder[name].length > 0) {
-          for (const el in reminder[name][0]) {
-            if (el === '_id') continue;
-
-            if (
-              reminder[name][0][el] &&
-              reminder[name][0][el]
-                .toString()
-                .toLowerCase()
-                .includes(searchQuery)
-            )
-              return true;
-          }
-        }
-        if (
-          reminder[name] &&
-          reminder[name]
-            .toString()
-            .toLowerCase()
-            .includes(searchQuery)
-        )
-          return true;
-      }
-      /* eslint-enable no-unused-vars */
-
-      return false;
-    });
+    return reminders.filter(reminder => filter(reminder, searchQuery));
   };
 
   handleCompleteChange = async reminder => {
     await this.props.editReminder(reminder._id, { isReminderCompleted: !reminder.isReminderCompleted });
     this.getReminders();
+  };
+
+  handleDateChange = async (id, reminderDate) => {
+    if (reminderDate) {
+      await this.props.editReminder(id, { reminderDate });
+      this.getReminders();
+    }
   };
 
   handleSearch = query => {
@@ -105,7 +82,12 @@ class Reminders extends Component {
           />
           <SearchBox value={this.state.searchQuery} onChange={this.handleSearch} />
         </div>
-        <RemindersTable handleCompleteChange={this.handleCompleteChange} reminders={reminders}></RemindersTable>
+
+        <RemindersTable
+          onDateChange={this.handleDateChange}
+          onCompleteChange={this.handleCompleteChange}
+          reminders={reminders}
+        ></RemindersTable>
       </>
     );
   }
