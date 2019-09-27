@@ -110,3 +110,11 @@ td {
 *:disabled {
   cursor: not-allowed;
 }
+
+p {
+  white-space: pre-wrap;
+}
+
+.treatment-header {
+  font-weight: 600;
+}
