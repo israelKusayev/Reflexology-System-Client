@@ -17,11 +17,11 @@ const Treatment = ({ treatment, currentPatient, history, isPatientsExists }) => 
   return (
     <>
       <h1 className="text-center bold">טיפול</h1>
-      <div class="card border-dark my-5" style={{ width: '50%', margin: 'auto' }}>
-        <div class="card-header text-center treatment-header">
+      <div classNmae="card border-dark my-5" style={{ width: '50%', margin: 'auto' }}>
+        <div classNmae="card-header text-center treatment-header">
           <PatientName patient={currentPatient} />
         </div>
-        <div class="card-body text-dark">
+        <div classNmae="card-body text-dark">
           <h4 className="bold">תאריך</h4>
           <p>
             {date.format('DD/MM/YYYY')} יום {convertDayToText(date.day())}

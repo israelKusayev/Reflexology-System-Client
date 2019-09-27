@@ -34,10 +34,10 @@ class PatientsTable extends Component {
       path: 'age',
       content: patient => (
         <>
-          <span data-tip={patient.lastAgeUpdate ? moment(patient.lastAgeUpdate).format('DD/MM/YYYY') : ''}>
+          <span data-tip={patient.birthday ? moment(patient.birthday).format('DD/MM/YYYY') : ''}>
             {patient.calculatedAge}
           </span>
-          <ReactTooltip effect='solid' />
+          <ReactTooltip effect="solid" />
         </>
       )
     },
@@ -52,9 +52,9 @@ class PatientsTable extends Component {
       path: 'email',
       content: patient =>
         patient.email ? (
-          <span className='emailCheck' onClick={e => this.handleEmailCopy(e)}>
+          <span className="emailCheck" onClick={e => this.handleEmailCopy(e)}>
             <CopyToClipboard text={patient.email}>
-              <FontAwesomeIcon className='text-success' icon={faCheck} />
+              <FontAwesomeIcon className="text-success" icon={faCheck} />
             </CopyToClipboard>
           </span>
         ) : null
@@ -64,7 +64,7 @@ class PatientsTable extends Component {
       content: patient => (
         <div style={{ display: 'flex' }}>
           <button
-            className='btn btn-outline-primary btn-sm '
+            className="btn btn-outline-primary btn-sm "
             onClick={e => {
               e.stopPropagation();
               this.props.getTreatments(patient._id).then(() => {
@@ -75,7 +75,7 @@ class PatientsTable extends Component {
             הוסף טיפול
           </button>
           <button
-            className='btn btn-outline-primary btn-sm ml-3'
+            className="btn btn-outline-primary btn-sm ml-3"
             onClick={e => {
               e.stopPropagation();
               this.props.history.push('/edit-patient/' + patient._id);
