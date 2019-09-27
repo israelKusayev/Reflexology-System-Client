@@ -17,11 +17,11 @@ const Treatment = ({ treatment, currentPatient, history, isPatientsExists }) => 
   return (
     <>
       <h1 className="text-center bold">טיפול</h1>
-      <div classNmae="card border-dark my-5" style={{ width: '50%', margin: 'auto' }}>
-        <div classNmae="card-header text-center treatment-header">
+      <div className="card border-dark my-5" style={{ width: '50%', margin: 'auto' }}>
+        <div className="card-header text-center treatment-header">
           <PatientName patient={currentPatient} />
         </div>
-        <div classNmae="card-body text-dark">
+        <div className="card-body text-dark">
           <h4 className="bold">תאריך</h4>
           <p>
             {date.format('DD/MM/YYYY')} יום {convertDayToText(date.day())}
@@ -99,4 +99,4 @@ const mapStateToProps = (state, ownProps) => ({
   currentPatient: state.patients.patients.find(p => p._id === state.patients.currentPatient)
 });
 
-export default connect(mapStateToProps)(Treatment);
+export default connect(mapStateToProps)(React.memo(Treatment));

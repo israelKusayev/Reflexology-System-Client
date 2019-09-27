@@ -17,4 +17,4 @@ const EditableTableCell = ({ children }) => {
   );
 };
 
-export default EditableTableCell;
+export default React.memo(EditableTableCell);

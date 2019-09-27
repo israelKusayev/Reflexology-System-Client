@@ -29,4 +29,4 @@ const EditableReminderDate = ({ reminder, onClose }) => {
     </div>
   );
 };
-export default EditableReminderDate;
+export default React.memo(EditableReminderDate);

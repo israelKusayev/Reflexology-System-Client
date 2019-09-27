@@ -30,7 +30,8 @@ class Treatments extends Component {
         <h1 className="text-center bold">טיפולים</h1>
         <button
           className="btn btn-outline-primary my-3"
-          onClick={() => this.props.history.push('/add-treatment/' + this.props.match.params.id)}>
+          onClick={() => this.props.history.push('/add-treatment/' + this.props.match.params.id)}
+        >
           הוסף טיפול
         </button>
         <span className="ml-3 bold">
@@ -38,7 +39,8 @@ class Treatments extends Component {
         </span>
         <button
           className="btn btn-outline-primary float-right my-3 text-center"
-          onClick={() => history.push('/patients')}>
+          onClick={() => history.push('/patients')}
+        >
           חזור ללקוחות
           <span>
             &nbsp;&nbsp;

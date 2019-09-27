@@ -1,4 +1,3 @@
-//@ts-check
 import React, { PureComponent } from 'react';
 import Select from 'react-select';
 import SearchBox from '../common/searchBox';

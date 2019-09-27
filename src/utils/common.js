@@ -1,5 +1,3 @@
-//@ts-check
-
 import moment from 'moment';
 
 export function getDurationFromNow(start) {
@@ -51,4 +49,8 @@ export function filter(obj, searchQuery) {
     )
       return true;
   }
+}
+
+export function getHocDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }

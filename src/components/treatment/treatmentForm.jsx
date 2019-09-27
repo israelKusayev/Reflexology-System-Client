@@ -112,4 +112,4 @@ const TreatmentForm = ({ patient, data, onSubmit, error }) => {
   );
 };
 
-export default TreatmentForm;
+export default React.memo(TreatmentForm);
