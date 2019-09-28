@@ -18,9 +18,7 @@ const setup = () => {
 };
 
 const simulateChange = (enzymeWrapper, name, value) => {
-  enzymeWrapper
-    .find('input#' + name)
-    .simulate('change', { target: { value, name } });
+  enzymeWrapper.find('input#' + name).simulate('change', { target: { value, name } });
 };
 
 describe('login component', () => {
@@ -44,17 +42,13 @@ describe('login component', () => {
     it('should validate username', () => {
       const { enzymeWrapper } = setup();
 
-      enzymeWrapper
-        .find('form')
-        .simulate('submit', { preventDefault: jest.fn() });
+      enzymeWrapper.find('form').simulate('submit', { preventDefault: jest.fn() });
 
       expect(enzymeWrapper.state().error.length).not.toEqual(0);
     });
 
     const simulateSubmit = enzymeWrapper => {
-      enzymeWrapper
-        .find('form')
-        .simulate('submit', { preventDefault: jest.fn() });
+      enzymeWrapper.find('form').simulate('submit', { preventDefault: jest.fn() });
     };
 
     it('should validate password', () => {
@@ -74,10 +68,7 @@ describe('login component', () => {
 
       expect(props.login).toBeCalled();
       expect(props.login.mock.calls.length).toBe(1);
-      expect(props.login).toBeCalledWith(
-        { username: 'israel', password: '1234' },
-        ''
-      );
+      expect(props.login).toBeCalledWith({ username: 'israel', password: '1234' }, '');
     });
   });
 });

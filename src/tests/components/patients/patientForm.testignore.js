@@ -54,8 +54,6 @@ describe('bootstrap input component', () => {
     componentProps.error = '1234';
     const { enzymeWrapper, props } = setup();
 
-    expect(enzymeWrapper.find('div.alert.alert-danger').text()).toEqual(
-      props.error
-    );
+    expect(enzymeWrapper.find('div.alert.alert-danger').text()).toEqual(props.error);
   });
 });

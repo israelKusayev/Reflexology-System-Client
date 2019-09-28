@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import BootstrapInput from '../../../components/common/bootstrapInput';
 
 let componentProps = {};
@@ -15,14 +15,14 @@ beforeEach(() => {
   };
 });
 const setup = () => {
-  const enzymeWrapper = shallow(<BootstrapInput {...componentProps} />);
+  const enzymeWrapper = mount(<BootstrapInput {...componentProps} />);
   return { props: componentProps, enzymeWrapper };
 };
 describe('bootstrap input component', () => {
   it('should render the component', () => {
     const { enzymeWrapper } = setup();
     expect(enzymeWrapper.exists('div.form-group')).toBeTruthy();
-    expect(enzymeWrapper.exists('label')).toBeTruthy();
+    expect(enzymeWrapper.exists('FormLabel')).toBeTruthy();
     expect(enzymeWrapper.exists('input.form-control')).toBeTruthy();
   });
 

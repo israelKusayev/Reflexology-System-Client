@@ -19,17 +19,17 @@ const PatientSchema = Yup.object().shape({
 
 function PatientForm({ data, onSubmit, error }) {
   return (
-    <div className='row justify-content-center' style={{ marginTop: '20px' }}>
-      <div className='card patient-card col-md-7' style={{ padding: 0 }}>
+    <div className="row justify-content-center" style={{ marginTop: '20px' }}>
+      <div className="card patient-card col-md-7" style={{ padding: 0 }}>
         <Formik enableReinitialize initialValues={data} onSubmit={onSubmit} validationSchema={PatientSchema}>
           {({ isSubmitting, errors, touched, values, setFieldValue }) => (
             <Form>
               <PerfectScrollbar style={{ maxHeight: '78vh', direction: 'ltr' }} options={{ suppressScrollX: true }}>
-                <div className='card-body row' style={{ direction: 'rtl' }}>
-                  <div className='col-md-8 mx-auto'>
+                <div className="card-body row" style={{ direction: 'rtl' }}>
+                  <div className="col-md-8 mx-auto">
                     <BootstrapInput
-                      label='שם משפחה'
-                      name='lastName'
+                      label="שם משפחה"
+                      name="lastName"
                       error={errors.lastName}
                       touched={touched.lastName}
                       value={values.lastName}
@@ -38,8 +38,8 @@ function PatientForm({ data, onSubmit, error }) {
                     />
 
                     <BootstrapInput
-                      label='שם פרטי'
-                      name='firstName'
+                      label="שם פרטי"
+                      name="firstName"
                       error={errors.firstName}
                       touched={touched.firstName}
                       value={values.firstName}
@@ -47,16 +47,16 @@ function PatientForm({ data, onSubmit, error }) {
                     />
 
                     <BootstrapInput
-                      label='שם האם'
-                      name='momName'
+                      label="שם האם"
+                      name="momName"
                       error={errors.momName}
                       touched={touched.momName}
                       value={values.momName}
                     />
 
                     <InputMask
-                      label='תאריך לידה'
-                      name='birthday'
+                      label="תאריך לידה"
+                      name="birthday"
                       error={errors.birthday}
                       touched={touched.birthday}
                       value={values.birthday}
@@ -64,43 +64,43 @@ function PatientForm({ data, onSubmit, error }) {
                         const age = convertDateToAge(e.target.value);
                         setFieldValue('age', age);
                       }}
-                      mask='99/99/9999'
+                      mask="99/99/9999"
                     />
 
                     <BootstrapInput
-                      label='גיל'
-                      name='age'
+                      label="גיל"
+                      name="age"
                       error={errors.age}
                       touched={touched.age}
                       value={values.age}
                     />
 
                     <BootstrapInput
-                      label='טלפון'
-                      name='phone'
+                      label="טלפון"
+                      name="phone"
                       error={errors.phone}
                       touched={touched.phone}
                       value={values.phone}
                     />
 
                     <BootstrapInput
-                      label='אימיל'
-                      name='email'
+                      label="אימיל"
+                      name="email"
                       error={errors.email}
                       touched={touched.email}
                       value={values.email}
                     />
 
                     {error && (
-                      <div className='alert alert-danger' role='alert'>
+                      <div className="alert alert-danger" role="alert">
                         {error}
                       </div>
                     )}
                   </div>
                 </div>
               </PerfectScrollbar>
-              <div className='card-footer'>
-                <button disabled={isSubmitting} type='submit' className='btn btn-primary btn-block'>
+              <div className="card-footer">
+                <button disabled={isSubmitting} type="submit" className="btn btn-primary btn-block">
                   שמור
                 </button>
               </div>
