@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import ReactJsPagination from 'react-js-pagination';
 
 const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
-
   return (
     <ReactJsPagination
       activePage={currentPage}
