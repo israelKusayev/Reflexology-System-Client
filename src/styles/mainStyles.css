@@ -118,3 +118,7 @@ p {
 .treatment-header {
   font-weight: 600;
 }
+
+.page-link:focus {
+  box-shadow: initial;
+}
